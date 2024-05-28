@@ -46,6 +46,7 @@
 		49250D762C05C4200026C681 /* MarginNoteTranslatePluginUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarginNoteTranslatePluginUITests.swift; sourceTree = "<group>"; };
 		49250D782C05C4200026C681 /* MarginNoteTranslatePluginUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarginNoteTranslatePluginUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		49250D852C05C42C0026C681 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		49250D862C05CFEC0026C681 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +77,7 @@
 		49250D4E2C05C41F0026C681 = {
 			isa = PBXGroup;
 			children = (
+				49250D862C05CFEC0026C681 /* README.md */,
 				49250D592C05C41F0026C681 /* MarginNoteTranslatePlugin */,
 				49250D6B2C05C4200026C681 /* MarginNoteTranslatePluginTests */,
 				49250D752C05C4200026C681 /* MarginNoteTranslatePluginUITests */,
