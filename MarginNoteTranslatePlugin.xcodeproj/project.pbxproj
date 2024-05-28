@@ -45,6 +45,7 @@
 		49250D722C05C4200026C681 /* MarginNoteTranslatePluginUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarginNoteTranslatePluginUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		49250D762C05C4200026C681 /* MarginNoteTranslatePluginUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarginNoteTranslatePluginUITests.swift; sourceTree = "<group>"; };
 		49250D782C05C4200026C681 /* MarginNoteTranslatePluginUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarginNoteTranslatePluginUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		49250D852C05C42C0026C681 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +96,7 @@
 		49250D592C05C41F0026C681 /* MarginNoteTranslatePlugin */ = {
 			isa = PBXGroup;
 			children = (
+				49250D852C05C42C0026C681 /* Info.plist */,
 				49250D5A2C05C41F0026C681 /* MarginNoteTranslatePluginApp.swift */,
 				49250D5C2C05C41F0026C681 /* ContentView.swift */,
 				49250D5E2C05C4200026C681 /* Assets.xcassets */,
@@ -429,6 +431,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MarginNoteTranslatePlugin/Info.plist;
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -456,6 +460,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MarginNoteTranslatePlugin/Info.plist;
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
