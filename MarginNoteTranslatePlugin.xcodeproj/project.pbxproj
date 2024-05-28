@@ -1,0 +1,586 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		49250D5B2C05C41F0026C681 /* MarginNoteTranslatePluginApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D5A2C05C41F0026C681 /* MarginNoteTranslatePluginApp.swift */; };
+		49250D5D2C05C41F0026C681 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D5C2C05C41F0026C681 /* ContentView.swift */; };
+		49250D5F2C05C4200026C681 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49250D5E2C05C4200026C681 /* Assets.xcassets */; };
+		49250D622C05C4200026C681 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49250D612C05C4200026C681 /* Preview Assets.xcassets */; };
+		49250D6D2C05C4200026C681 /* MarginNoteTranslatePluginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D6C2C05C4200026C681 /* MarginNoteTranslatePluginTests.swift */; };
+		49250D772C05C4200026C681 /* MarginNoteTranslatePluginUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D762C05C4200026C681 /* MarginNoteTranslatePluginUITests.swift */; };
+		49250D792C05C4200026C681 /* MarginNoteTranslatePluginUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D782C05C4200026C681 /* MarginNoteTranslatePluginUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		49250D692C05C4200026C681 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 49250D4F2C05C41F0026C681 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 49250D562C05C41F0026C681;
+			remoteInfo = MarginNoteTranslatePlugin;
+		};
+		49250D732C05C4200026C681 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 49250D4F2C05C41F0026C681 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 49250D562C05C41F0026C681;
+			remoteInfo = MarginNoteTranslatePlugin;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		49250D572C05C41F0026C681 /* MarginNoteTranslatePlugin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarginNoteTranslatePlugin.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		49250D5A2C05C41F0026C681 /* MarginNoteTranslatePluginApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarginNoteTranslatePluginApp.swift; sourceTree = "<group>"; };
+		49250D5C2C05C41F0026C681 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		49250D5E2C05C4200026C681 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		49250D612C05C4200026C681 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		49250D632C05C4200026C681 /* MarginNoteTranslatePlugin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MarginNoteTranslatePlugin.entitlements; sourceTree = "<group>"; };
+		49250D682C05C4200026C681 /* MarginNoteTranslatePluginTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarginNoteTranslatePluginTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		49250D6C2C05C4200026C681 /* MarginNoteTranslatePluginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarginNoteTranslatePluginTests.swift; sourceTree = "<group>"; };
+		49250D722C05C4200026C681 /* MarginNoteTranslatePluginUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarginNoteTranslatePluginUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		49250D762C05C4200026C681 /* MarginNoteTranslatePluginUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarginNoteTranslatePluginUITests.swift; sourceTree = "<group>"; };
+		49250D782C05C4200026C681 /* MarginNoteTranslatePluginUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarginNoteTranslatePluginUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		49250D542C05C41F0026C681 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49250D652C05C4200026C681 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49250D6F2C05C4200026C681 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		49250D4E2C05C41F0026C681 = {
+			isa = PBXGroup;
+			children = (
+				49250D592C05C41F0026C681 /* MarginNoteTranslatePlugin */,
+				49250D6B2C05C4200026C681 /* MarginNoteTranslatePluginTests */,
+				49250D752C05C4200026C681 /* MarginNoteTranslatePluginUITests */,
+				49250D582C05C41F0026C681 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		49250D582C05C41F0026C681 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				49250D572C05C41F0026C681 /* MarginNoteTranslatePlugin.app */,
+				49250D682C05C4200026C681 /* MarginNoteTranslatePluginTests.xctest */,
+				49250D722C05C4200026C681 /* MarginNoteTranslatePluginUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		49250D592C05C41F0026C681 /* MarginNoteTranslatePlugin */ = {
+			isa = PBXGroup;
+			children = (
+				49250D5A2C05C41F0026C681 /* MarginNoteTranslatePluginApp.swift */,
+				49250D5C2C05C41F0026C681 /* ContentView.swift */,
+				49250D5E2C05C4200026C681 /* Assets.xcassets */,
+				49250D632C05C4200026C681 /* MarginNoteTranslatePlugin.entitlements */,
+				49250D602C05C4200026C681 /* Preview Content */,
+			);
+			path = MarginNoteTranslatePlugin;
+			sourceTree = "<group>";
+		};
+		49250D602C05C4200026C681 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				49250D612C05C4200026C681 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		49250D6B2C05C4200026C681 /* MarginNoteTranslatePluginTests */ = {
+			isa = PBXGroup;
+			children = (
+				49250D6C2C05C4200026C681 /* MarginNoteTranslatePluginTests.swift */,
+			);
+			path = MarginNoteTranslatePluginTests;
+			sourceTree = "<group>";
+		};
+		49250D752C05C4200026C681 /* MarginNoteTranslatePluginUITests */ = {
+			isa = PBXGroup;
+			children = (
+				49250D762C05C4200026C681 /* MarginNoteTranslatePluginUITests.swift */,
+				49250D782C05C4200026C681 /* MarginNoteTranslatePluginUITestsLaunchTests.swift */,
+			);
+			path = MarginNoteTranslatePluginUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		49250D562C05C41F0026C681 /* MarginNoteTranslatePlugin */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49250D7C2C05C4200026C681 /* Build configuration list for PBXNativeTarget "MarginNoteTranslatePlugin" */;
+			buildPhases = (
+				49250D532C05C41F0026C681 /* Sources */,
+				49250D542C05C41F0026C681 /* Frameworks */,
+				49250D552C05C41F0026C681 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MarginNoteTranslatePlugin;
+			productName = MarginNoteTranslatePlugin;
+			productReference = 49250D572C05C41F0026C681 /* MarginNoteTranslatePlugin.app */;
+			productType = "com.apple.product-type.application";
+		};
+		49250D672C05C4200026C681 /* MarginNoteTranslatePluginTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49250D7F2C05C4200026C681 /* Build configuration list for PBXNativeTarget "MarginNoteTranslatePluginTests" */;
+			buildPhases = (
+				49250D642C05C4200026C681 /* Sources */,
+				49250D652C05C4200026C681 /* Frameworks */,
+				49250D662C05C4200026C681 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				49250D6A2C05C4200026C681 /* PBXTargetDependency */,
+			);
+			name = MarginNoteTranslatePluginTests;
+			productName = MarginNoteTranslatePluginTests;
+			productReference = 49250D682C05C4200026C681 /* MarginNoteTranslatePluginTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		49250D712C05C4200026C681 /* MarginNoteTranslatePluginUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49250D822C05C4200026C681 /* Build configuration list for PBXNativeTarget "MarginNoteTranslatePluginUITests" */;
+			buildPhases = (
+				49250D6E2C05C4200026C681 /* Sources */,
+				49250D6F2C05C4200026C681 /* Frameworks */,
+				49250D702C05C4200026C681 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				49250D742C05C4200026C681 /* PBXTargetDependency */,
+			);
+			name = MarginNoteTranslatePluginUITests;
+			productName = MarginNoteTranslatePluginUITests;
+			productReference = 49250D722C05C4200026C681 /* MarginNoteTranslatePluginUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		49250D4F2C05C41F0026C681 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					49250D562C05C41F0026C681 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					49250D672C05C4200026C681 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 49250D562C05C41F0026C681;
+					};
+					49250D712C05C4200026C681 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 49250D562C05C41F0026C681;
+					};
+				};
+			};
+			buildConfigurationList = 49250D522C05C41F0026C681 /* Build configuration list for PBXProject "MarginNoteTranslatePlugin" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 49250D4E2C05C41F0026C681;
+			productRefGroup = 49250D582C05C41F0026C681 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				49250D562C05C41F0026C681 /* MarginNoteTranslatePlugin */,
+				49250D672C05C4200026C681 /* MarginNoteTranslatePluginTests */,
+				49250D712C05C4200026C681 /* MarginNoteTranslatePluginUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		49250D552C05C41F0026C681 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49250D622C05C4200026C681 /* Preview Assets.xcassets in Resources */,
+				49250D5F2C05C4200026C681 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49250D662C05C4200026C681 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49250D702C05C4200026C681 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		49250D532C05C41F0026C681 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49250D5D2C05C41F0026C681 /* ContentView.swift in Sources */,
+				49250D5B2C05C41F0026C681 /* MarginNoteTranslatePluginApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49250D642C05C4200026C681 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49250D6D2C05C4200026C681 /* MarginNoteTranslatePluginTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49250D6E2C05C4200026C681 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49250D792C05C4200026C681 /* MarginNoteTranslatePluginUITestsLaunchTests.swift in Sources */,
+				49250D772C05C4200026C681 /* MarginNoteTranslatePluginUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		49250D6A2C05C4200026C681 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 49250D562C05C41F0026C681 /* MarginNoteTranslatePlugin */;
+			targetProxy = 49250D692C05C4200026C681 /* PBXContainerItemProxy */;
+		};
+		49250D742C05C4200026C681 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 49250D562C05C41F0026C681 /* MarginNoteTranslatePlugin */;
+			targetProxy = 49250D732C05C4200026C681 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		49250D7A2C05C4200026C681 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		49250D7B2C05C4200026C681 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		49250D7D2C05C4200026C681 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MarginNoteTranslatePlugin/MarginNoteTranslatePlugin.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"MarginNoteTranslatePlugin/Preview Content\"";
+				DEVELOPMENT_TEAM = MYB5299FCX;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wttch.MarginNoteTranslatePlugin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		49250D7E2C05C4200026C681 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MarginNoteTranslatePlugin/MarginNoteTranslatePlugin.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"MarginNoteTranslatePlugin/Preview Content\"";
+				DEVELOPMENT_TEAM = MYB5299FCX;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wttch.MarginNoteTranslatePlugin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		49250D802C05C4200026C681 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MYB5299FCX;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wttch.MarginNoteTranslatePluginTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MarginNoteTranslatePlugin.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MarginNoteTranslatePlugin";
+			};
+			name = Debug;
+		};
+		49250D812C05C4200026C681 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MYB5299FCX;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wttch.MarginNoteTranslatePluginTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MarginNoteTranslatePlugin.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MarginNoteTranslatePlugin";
+			};
+			name = Release;
+		};
+		49250D832C05C4200026C681 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MYB5299FCX;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wttch.MarginNoteTranslatePluginUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = MarginNoteTranslatePlugin;
+			};
+			name = Debug;
+		};
+		49250D842C05C4200026C681 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MYB5299FCX;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wttch.MarginNoteTranslatePluginUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = MarginNoteTranslatePlugin;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		49250D522C05C41F0026C681 /* Build configuration list for PBXProject "MarginNoteTranslatePlugin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49250D7A2C05C4200026C681 /* Debug */,
+				49250D7B2C05C4200026C681 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		49250D7C2C05C4200026C681 /* Build configuration list for PBXNativeTarget "MarginNoteTranslatePlugin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49250D7D2C05C4200026C681 /* Debug */,
+				49250D7E2C05C4200026C681 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		49250D7F2C05C4200026C681 /* Build configuration list for PBXNativeTarget "MarginNoteTranslatePluginTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49250D802C05C4200026C681 /* Debug */,
+				49250D812C05C4200026C681 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		49250D822C05C4200026C681 /* Build configuration list for PBXNativeTarget "MarginNoteTranslatePluginUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49250D832C05C4200026C681 /* Debug */,
+				49250D842C05C4200026C681 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 49250D4F2C05C41F0026C681 /* Project object */;
+}
