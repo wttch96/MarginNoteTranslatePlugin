@@ -14,6 +14,10 @@
 		49250D6D2C05C4200026C681 /* MarginNoteTranslatePluginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D6C2C05C4200026C681 /* MarginNoteTranslatePluginTests.swift */; };
 		49250D772C05C4200026C681 /* MarginNoteTranslatePluginUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D762C05C4200026C681 /* MarginNoteTranslatePluginUITests.swift */; };
 		49250D792C05C4200026C681 /* MarginNoteTranslatePluginUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D782C05C4200026C681 /* MarginNoteTranslatePluginUITestsLaunchTests.swift */; };
+		49250D882C05E82A0026C681 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D872C05E82A0026C681 /* SettingView.swift */; };
+		49250D8C2C05F85E0026C681 /* ResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D8B2C05F85E0026C681 /* ResponseDTO.swift */; };
+		49250D8E2C06059F0026C681 /* TanshuAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D8D2C06059F0026C681 /* TanshuAPI.swift */; };
+		49250D902C0609870026C681 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D8F2C0609870026C681 /* MenuBarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +51,10 @@
 		49250D782C05C4200026C681 /* MarginNoteTranslatePluginUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarginNoteTranslatePluginUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		49250D852C05C42C0026C681 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		49250D862C05CFEC0026C681 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		49250D872C05E82A0026C681 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		49250D8B2C05F85E0026C681 /* ResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDTO.swift; sourceTree = "<group>"; };
+		49250D8D2C06059F0026C681 /* TanshuAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanshuAPI.swift; sourceTree = "<group>"; };
+		49250D8F2C0609870026C681 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,9 +106,10 @@
 		49250D592C05C41F0026C681 /* MarginNoteTranslatePlugin */ = {
 			isa = PBXGroup;
 			children = (
+				49250D8A2C05F84F0026C681 /* API */,
+				49250D892C05E82E0026C681 /* View */,
 				49250D852C05C42C0026C681 /* Info.plist */,
 				49250D5A2C05C41F0026C681 /* MarginNoteTranslatePluginApp.swift */,
-				49250D5C2C05C41F0026C681 /* ContentView.swift */,
 				49250D5E2C05C4200026C681 /* Assets.xcassets */,
 				49250D632C05C4200026C681 /* MarginNoteTranslatePlugin.entitlements */,
 				49250D602C05C4200026C681 /* Preview Content */,
@@ -131,6 +140,25 @@
 				49250D782C05C4200026C681 /* MarginNoteTranslatePluginUITestsLaunchTests.swift */,
 			);
 			path = MarginNoteTranslatePluginUITests;
+			sourceTree = "<group>";
+		};
+		49250D892C05E82E0026C681 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				49250D5C2C05C41F0026C681 /* ContentView.swift */,
+				49250D872C05E82A0026C681 /* SettingView.swift */,
+				49250D8F2C0609870026C681 /* MenuBarView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		49250D8A2C05F84F0026C681 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				49250D8B2C05F85E0026C681 /* ResponseDTO.swift */,
+				49250D8D2C06059F0026C681 /* TanshuAPI.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,7 +291,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49250D882C05E82A0026C681 /* SettingView.swift in Sources */,
 				49250D5D2C05C41F0026C681 /* ContentView.swift in Sources */,
+				49250D8E2C06059F0026C681 /* TanshuAPI.swift in Sources */,
+				49250D902C0609870026C681 /* MenuBarView.swift in Sources */,
+				49250D8C2C05F85E0026C681 /* ResponseDTO.swift in Sources */,
 				49250D5B2C05C41F0026C681 /* MarginNoteTranslatePluginApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
