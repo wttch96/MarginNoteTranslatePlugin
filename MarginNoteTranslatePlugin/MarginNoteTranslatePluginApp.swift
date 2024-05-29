@@ -15,7 +15,6 @@ struct MarginNoteTranslatePluginApp: App {
     var body: some Scene {
         Window("MarginNote插件", id: "WttchMarginNotePlugin", content: {
             ContentView()
-                .frame(width: 400)
         })
         .windowResizability(.contentSize)
         
@@ -33,7 +32,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-        if let window = NSApplication.shared.windows.first(where: { $0.title.contains("MarginNote插件")}) {
+        WindowContext.shared.mainWindow { window in
             window.isOpaque = true
             window.backgroundColor = .clear
             window.hasShadow = false
@@ -51,6 +50,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         popover = NSPopover()
         popover.contentViewController = NSHostingController(rootView: MenuBarView())
+        // 去除箭头
         popover.setValue(true, forKeyPath: "shouldHideAnchor")
     }
     
@@ -62,7 +62,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 // 显示 popover 并居中对齐
                 popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
                 
-                if let window = NSApplication.shared.windows.first { $0.className.contains("PopoverWindow")} {
+                WindowContext.shared.popoverWindow { window in
                     window.hasShadow = false
                     window.backgroundColor = .clear
                     window.isOpaque = true

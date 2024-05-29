@@ -8,3 +8,8 @@ MarginNote 使用 [ReResearch](https://bbs.marginnote.com.cn/t/topic/7069/5) 插
 
 内容捕获后，调用翻译 API 翻译即可。
 
+
+## 界面
+![界面](./Images/1.png)
+
+参照 iPhone 的翻译软件。

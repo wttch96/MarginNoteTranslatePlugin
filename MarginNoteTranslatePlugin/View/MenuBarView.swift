@@ -55,14 +55,19 @@ class MenuBarViewModel: ObservableObject {
 
 struct MenuBarView: View {
     @StateObject private var vm = MenuBarViewModel()
-    @State
-    var isVisibleObservation: NSKeyValueObservation? = nil
+    @State var isVisibleObservation: NSKeyValueObservation? = nil
+    @Environment(\.openWindow) private var openWindow
     
     var body: some View {
         VStack {
             Text("MarginNote 翻译插件")
                 .foregroundColor(.green)
             Divider()
+            
+            Image(systemName: "gearshape.fill")
+                .onTapGesture {
+                    openWindow(id: "SettingWindow")
+                }
             
             if let error = vm.error {
                 Text(error)
@@ -83,10 +88,11 @@ struct MenuBarView: View {
                 NSApplication.shared.terminate(nil)
             }
         }
-        .padding()
+        .viewIdentifier("MenuBarView")
+        .padding(.vertical, 24)
         .onAppear {
-            
-            if let window = NSApplication.shared.windows.first { $0.className.contains("PopoverWindow")} {
+            // 监听 window 的弹出事件
+            WindowContext.shared.popoverWindow { window in
                 isVisibleObservation = window.observe(\.isVisible, options: [.new]) { (window, change) in
                     if let isVisible = change.newValue {
                         if isVisible {

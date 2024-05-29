@@ -18,6 +18,8 @@
 		49250D8C2C05F85E0026C681 /* ResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D8B2C05F85E0026C681 /* ResponseDTO.swift */; };
 		49250D8E2C06059F0026C681 /* TanshuAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D8D2C06059F0026C681 /* TanshuAPI.swift */; };
 		49250D902C0609870026C681 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D8F2C0609870026C681 /* MenuBarView.swift */; };
+		49250D922C06D66A0026C681 /* WindowContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D912C06D66A0026C681 /* WindowContext.swift */; };
+		49250D942C06DA8D0026C681 /* IdentifiableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D932C06DA8D0026C681 /* IdentifiableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,9 @@
 		49250D8B2C05F85E0026C681 /* ResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDTO.swift; sourceTree = "<group>"; };
 		49250D8D2C06059F0026C681 /* TanshuAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanshuAPI.swift; sourceTree = "<group>"; };
 		49250D8F2C0609870026C681 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
+		49250D912C06D66A0026C681 /* WindowContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowContext.swift; sourceTree = "<group>"; };
+		49250D932C06DA8D0026C681 /* IdentifiableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableView.swift; sourceTree = "<group>"; };
+		49250D962C071A130026C681 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 1.png; path = ../../../../Downloads/1.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +90,7 @@
 		49250D4E2C05C41F0026C681 = {
 			isa = PBXGroup;
 			children = (
+				49250D952C0719E40026C681 /* Images */,
 				49250D862C05CFEC0026C681 /* README.md */,
 				49250D592C05C41F0026C681 /* MarginNoteTranslatePlugin */,
 				49250D6B2C05C4200026C681 /* MarginNoteTranslatePluginTests */,
@@ -113,6 +119,8 @@
 				49250D5E2C05C4200026C681 /* Assets.xcassets */,
 				49250D632C05C4200026C681 /* MarginNoteTranslatePlugin.entitlements */,
 				49250D602C05C4200026C681 /* Preview Content */,
+				49250D912C06D66A0026C681 /* WindowContext.swift */,
+				49250D932C06DA8D0026C681 /* IdentifiableView.swift */,
 			);
 			path = MarginNoteTranslatePlugin;
 			sourceTree = "<group>";
@@ -159,6 +167,14 @@
 				49250D8D2C06059F0026C681 /* TanshuAPI.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		49250D952C0719E40026C681 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				49250D962C071A130026C681 /* 1.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -293,7 +309,9 @@
 			files = (
 				49250D882C05E82A0026C681 /* SettingView.swift in Sources */,
 				49250D5D2C05C41F0026C681 /* ContentView.swift in Sources */,
+				49250D922C06D66A0026C681 /* WindowContext.swift in Sources */,
 				49250D8E2C06059F0026C681 /* TanshuAPI.swift in Sources */,
+				49250D942C06DA8D0026C681 /* IdentifiableView.swift in Sources */,
 				49250D902C0609870026C681 /* MenuBarView.swift in Sources */,
 				49250D8C2C05F85E0026C681 /* ResponseDTO.swift in Sources */,
 				49250D5B2C05C41F0026C681 /* MarginNoteTranslatePluginApp.swift in Sources */,
