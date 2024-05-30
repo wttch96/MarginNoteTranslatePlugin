@@ -16,7 +16,6 @@ struct MarginNoteTranslatePluginApp: App {
         Window("MarginNote插件", id: "WttchMarginNotePlugin", content: {
             ContentView()
         })
-        .windowResizability(.contentSize)
         
         Window("设置", id: "SettingWindow") {
             SettingView()

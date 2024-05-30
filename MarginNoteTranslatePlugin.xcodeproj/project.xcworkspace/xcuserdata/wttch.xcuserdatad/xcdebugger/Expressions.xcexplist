@@ -3,15 +3,18 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "closure #3 in MenuBarView.body.getter:MenuBarView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in ContentView.body.getter:ContentView.swift">
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in TanshuAPI.translate(_:key:):TanshuAPI.swift">
          <PersistentStrings>
             <PersistentString
                value = "String(data:$0.data, encoding: .utf8)">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #3 in MenuBarView.body.getter:MenuBarView.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

@@ -8,14 +8,20 @@
 import SwiftUI
 import Combine
 
-struct History {
+struct History: Identifiable {
+    var id: String {
+        return text
+    }
     let text: String
     let result: String
 }
 
 struct ContentView: View {
     @Environment(\.openWindow) var openWindow
-    @AppStorage("key") var key: String?
+    @AppStorage("key") var tanshuKey: String?
+    // 有道翻译
+    @AppStorage("youdao-app-id") var youdaoAppId: String = ""
+    @AppStorage("youdao-app-key") var youdaoAppKey: String = ""
     
     @State private var keywords: String = ""
     @State private var translateResult: String = ""
@@ -33,28 +39,40 @@ struct ContentView: View {
                 ScrollView {
                     VStack {
                         ForEach(histories.reversed(), id:\.text) { history in
-                            VStack {
-                                Text(history.text)
-                                    .lineLimit(1)
-                                Text(history.result)
-                                    .lineLimit(1)
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    Text(history.text)
+                                        .lineLimit(1)
+                                    Spacer()
+                                }
+                                HStack {
+                                    Text(history.result)
+                                        .lineLimit(1)
+                                    Spacer()
+                                }
                             }
-                            .frame(width: 100)
+                            .padding(4)
+                            .frame(width: 160)
                             .font(.footnote)
                             .background {
                                 RoundedRectangle(cornerRadius: 4)
                                     .fill(.white.opacity(0.1))
                             }
+                            .onTapGesture(perform: {
+                                self.keywords = history.text
+                                self.translateResult = history.result
+                            })
                         }
                     }
                 }
-                .frame(width: 160)
             }
             
             VStack(alignment: .leading) {
                 HStack {
                     Button(action: {
-                        showHistory.toggle()
+                        withAnimation(.spring) {
+                            showHistory.toggle()
+                        }
                     }, label: {
                         Image(systemName: "sidebar.left")
                     })
@@ -121,6 +139,10 @@ struct ContentView: View {
                         Image(systemName: "doc.on.doc")
                             .font(.title3)
                             .foregroundColor(.accentColor.opacity(0.6))
+                            .onTapGesture {
+                                NSPasteboard.general.clearContents()
+                                NSPasteboard.general.setString(translateResult, forType: .string)
+                            }
                         Spacer()
                     }
                 }
@@ -131,22 +153,28 @@ struct ContentView: View {
                 }
             }
             .textEditorStyle(.plain)
-            .frame(width: 400)
         }
         .padding()
         .onOpenURL(perform: { url in
             if let url = url.absoluteString.removingPercentEncoding {
                 keywords = url.replacing("WttchTranslate://keyword/", with: "")
                 
-                if let key = key {
-                    anyCancellabel = TanshuAPI.shared.translate(keywords, key: key)
-                        .sink(receiveCompletion: { error in
-                            print(error)
-                        }, receiveValue: { result in
-                            self.translateResult = result
-                            histories.append(History(text: keywords, result: self.translateResult))
-                        })
-                }
+//                if let key = key {
+//                    anyCancellabel = TanshuAPI.shared.translate(keywords, key: key)
+//                        .sink(receiveCompletion: { error in
+//                            print(error)
+//                        }, receiveValue: { result in
+//                            self.translateResult = result
+//                            histories.append(History(text: keywords, result: self.translateResult))
+//                        })
+//                }
+                anyCancellabel = YoudaoAPI.shared.translate(keywords, appId: youdaoAppId, appKey: youdaoAppKey)
+                    .sink { error in
+                        print(error)
+                    } receiveValue: { value in
+                        print(value)
+                    }
+
             }
         })
         .background {

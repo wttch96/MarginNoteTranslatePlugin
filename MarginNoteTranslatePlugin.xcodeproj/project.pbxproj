@@ -20,6 +20,7 @@
 		49250D902C0609870026C681 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D8F2C0609870026C681 /* MenuBarView.swift */; };
 		49250D922C06D66A0026C681 /* WindowContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D912C06D66A0026C681 /* WindowContext.swift */; };
 		49250D942C06DA8D0026C681 /* IdentifiableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D932C06DA8D0026C681 /* IdentifiableView.swift */; };
+		49FDC5AD2C076CCF003793F1 /* YoudaoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDC5AC2C076CCF003793F1 /* YoudaoAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		49250D912C06D66A0026C681 /* WindowContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowContext.swift; sourceTree = "<group>"; };
 		49250D932C06DA8D0026C681 /* IdentifiableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableView.swift; sourceTree = "<group>"; };
 		49250D962C071A130026C681 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 1.png; path = ../../../../Downloads/1.png; sourceTree = "<group>"; };
+		49FDC5AC2C076CCF003793F1 /* YoudaoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoudaoAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +167,7 @@
 			children = (
 				49250D8B2C05F85E0026C681 /* ResponseDTO.swift */,
 				49250D8D2C06059F0026C681 /* TanshuAPI.swift */,
+				49FDC5AC2C076CCF003793F1 /* YoudaoAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				49250D942C06DA8D0026C681 /* IdentifiableView.swift in Sources */,
 				49250D902C0609870026C681 /* MenuBarView.swift in Sources */,
 				49250D8C2C05F85E0026C681 /* ResponseDTO.swift in Sources */,
+				49FDC5AD2C076CCF003793F1 /* YoudaoAPI.swift in Sources */,
 				49250D5B2C05C41F0026C681 /* MarginNoteTranslatePluginApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

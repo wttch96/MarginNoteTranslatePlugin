@@ -13,6 +13,9 @@ import Combine
 ///
 struct SettingView: View {
     @AppStorage("key") private var key: String?
+    // 有道翻译
+    @AppStorage("youdao-app-id") var youdaoAppId: String = ""
+    @AppStorage("youdao-app-key") var youdaoAppKey: String = ""
     
     @State private var accounts: [AccountDTO] = []
     
@@ -73,10 +76,19 @@ struct SettingView: View {
                         accounts = resp.data.list
                     }
             }
+            
+            Section(content: {
+                SecureField("AppID:", text: $youdaoAppId)
+                SecureField("AppKey:", text: $youdaoAppKey)
+            }, header: {
+                Text("有道翻译")
+                    .font(.largeTitle)
+                    .bold()
+            })
         }
         .padding(.horizontal, 20)
         .padding(.vertical)
-        .frame(width: 600, height: 400)
+        .frame(width: 600)
         .formStyle(.grouped)
     }
 }
