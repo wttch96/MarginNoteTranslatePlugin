@@ -15,12 +15,17 @@
 		49250D772C05C4200026C681 /* MarginNoteTranslatePluginUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D762C05C4200026C681 /* MarginNoteTranslatePluginUITests.swift */; };
 		49250D792C05C4200026C681 /* MarginNoteTranslatePluginUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D782C05C4200026C681 /* MarginNoteTranslatePluginUITestsLaunchTests.swift */; };
 		49250D882C05E82A0026C681 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D872C05E82A0026C681 /* SettingView.swift */; };
-		49250D8C2C05F85E0026C681 /* ResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D8B2C05F85E0026C681 /* ResponseDTO.swift */; };
+		49250D8C2C05F85E0026C681 /* TanshuResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D8B2C05F85E0026C681 /* TanshuResponseDTO.swift */; };
 		49250D8E2C06059F0026C681 /* TanshuAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D8D2C06059F0026C681 /* TanshuAPI.swift */; };
 		49250D902C0609870026C681 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D8F2C0609870026C681 /* MenuBarView.swift */; };
 		49250D922C06D66A0026C681 /* WindowContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D912C06D66A0026C681 /* WindowContext.swift */; };
 		49250D942C06DA8D0026C681 /* IdentifiableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D932C06DA8D0026C681 /* IdentifiableView.swift */; };
+		49769F572C09B6DD00AA8A4D /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49769F562C09B6DD00AA8A4D /* Errors.swift */; };
+		49769F5B2C09BAB100AA8A4D /* YoudaoResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49769F5A2C09BAB100AA8A4D /* YoudaoResponseDTO.swift */; };
 		49FDC5AD2C076CCF003793F1 /* YoudaoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDC5AC2C076CCF003793F1 /* YoudaoAPI.swift */; };
+		49FDC5B22C0804DB003793F1 /* DisplayableSecureField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDC5B12C0804DB003793F1 /* DisplayableSecureField.swift */; };
+		49FDC5B52C080E20003793F1 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDC5B42C080E20003793F1 /* ContentViewModel.swift */; };
+		49FDC5B72C080FCF003793F1 /* APIType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDC5B62C080FCF003793F1 /* APIType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,13 +60,19 @@
 		49250D852C05C42C0026C681 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		49250D862C05CFEC0026C681 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		49250D872C05E82A0026C681 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
-		49250D8B2C05F85E0026C681 /* ResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDTO.swift; sourceTree = "<group>"; };
+		49250D8B2C05F85E0026C681 /* TanshuResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanshuResponseDTO.swift; sourceTree = "<group>"; };
 		49250D8D2C06059F0026C681 /* TanshuAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanshuAPI.swift; sourceTree = "<group>"; };
 		49250D8F2C0609870026C681 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
 		49250D912C06D66A0026C681 /* WindowContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowContext.swift; sourceTree = "<group>"; };
 		49250D932C06DA8D0026C681 /* IdentifiableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableView.swift; sourceTree = "<group>"; };
-		49250D962C071A130026C681 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 1.png; path = ../../../../Downloads/1.png; sourceTree = "<group>"; };
+		49769F562C09B6DD00AA8A4D /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		49769F5A2C09BAB100AA8A4D /* YoudaoResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoudaoResponseDTO.swift; sourceTree = "<group>"; };
 		49FDC5AC2C076CCF003793F1 /* YoudaoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoudaoAPI.swift; sourceTree = "<group>"; };
+		49FDC5AE2C08020B003793F1 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
+		49FDC5AF2C08020B003793F1 /* 2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 2.gif; sourceTree = "<group>"; };
+		49FDC5B12C0804DB003793F1 /* DisplayableSecureField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayableSecureField.swift; sourceTree = "<group>"; };
+		49FDC5B42C080E20003793F1 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		49FDC5B62C080FCF003793F1 /* APIType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +166,8 @@
 		49250D892C05E82E0026C681 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				49FDC5B32C080C75003793F1 /* ViewModel */,
+				49FDC5B02C080463003793F1 /* Component */,
 				49250D5C2C05C41F0026C681 /* ContentView.swift */,
 				49250D872C05E82A0026C681 /* SettingView.swift */,
 				49250D8F2C0609870026C681 /* MenuBarView.swift */,
@@ -165,9 +178,12 @@
 		49250D8A2C05F84F0026C681 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				49250D8B2C05F85E0026C681 /* ResponseDTO.swift */,
+				49250D8B2C05F85E0026C681 /* TanshuResponseDTO.swift */,
 				49250D8D2C06059F0026C681 /* TanshuAPI.swift */,
+				49769F5A2C09BAB100AA8A4D /* YoudaoResponseDTO.swift */,
 				49FDC5AC2C076CCF003793F1 /* YoudaoAPI.swift */,
+				49FDC5B62C080FCF003793F1 /* APIType.swift */,
+				49769F562C09B6DD00AA8A4D /* Errors.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -175,9 +191,26 @@
 		49250D952C0719E40026C681 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				49250D962C071A130026C681 /* 1.png */,
+				49FDC5AE2C08020B003793F1 /* 1.png */,
+				49FDC5AF2C08020B003793F1 /* 2.gif */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		49FDC5B02C080463003793F1 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				49FDC5B12C0804DB003793F1 /* DisplayableSecureField.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		49FDC5B32C080C75003793F1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				49FDC5B42C080E20003793F1 /* ContentViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,11 +347,16 @@
 				49250D5D2C05C41F0026C681 /* ContentView.swift in Sources */,
 				49250D922C06D66A0026C681 /* WindowContext.swift in Sources */,
 				49250D8E2C06059F0026C681 /* TanshuAPI.swift in Sources */,
+				49FDC5B22C0804DB003793F1 /* DisplayableSecureField.swift in Sources */,
 				49250D942C06DA8D0026C681 /* IdentifiableView.swift in Sources */,
 				49250D902C0609870026C681 /* MenuBarView.swift in Sources */,
-				49250D8C2C05F85E0026C681 /* ResponseDTO.swift in Sources */,
+				49769F572C09B6DD00AA8A4D /* Errors.swift in Sources */,
+				49FDC5B52C080E20003793F1 /* ContentViewModel.swift in Sources */,
+				49250D8C2C05F85E0026C681 /* TanshuResponseDTO.swift in Sources */,
 				49FDC5AD2C076CCF003793F1 /* YoudaoAPI.swift in Sources */,
+				49FDC5B72C080FCF003793F1 /* APIType.swift in Sources */,
 				49250D5B2C05C41F0026C681 /* MarginNoteTranslatePluginApp.swift in Sources */,
+				49769F5B2C09BAB100AA8A4D /* YoudaoResponseDTO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

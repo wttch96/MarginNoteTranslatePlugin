@@ -8,18 +8,18 @@
 import Foundation
 
 
-struct ResponseDTO<T>: Codable where T: Codable {
+struct TanshuResponseDTO<T>: Codable where T: Codable {
     let code: Int
     let msg: String
     let data: T
 }
 
 
-struct ListData<T>: Codable where T: Codable {
+struct TanshuListData<T>: Codable where T: Codable {
     let list: [T]
 }
 
-struct AccountDTO: Codable {
+struct TanshuAccountDTO: Codable {
     let apiName: String
     let isMember: Int
     let apiId: Int
@@ -38,6 +38,6 @@ struct AccountDTO: Codable {
 }
 
 
-struct TranslateDTO: Codable {
+struct TanshuTranslateDTO: Codable {
     let text: String
 }

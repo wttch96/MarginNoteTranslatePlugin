@@ -12,12 +12,12 @@ import Combine
 /// 设置页面
 ///
 struct SettingView: View {
-    @AppStorage("key") private var key: String?
+    @AppStorage(TanshuAPI.apiKey) private var key: String?
     // 有道翻译
-    @AppStorage("youdao-app-id") var youdaoAppId: String = ""
-    @AppStorage("youdao-app-key") var youdaoAppKey: String = ""
+    @AppStorage(YoudaoAPI.appIdKey) var youdaoAppId: String = ""
+    @AppStorage(YoudaoAPI.appKeyKey) var youdaoAppKey: String = ""
     
-    @State private var accounts: [AccountDTO] = []
+    @State private var accounts: [TanshuAccountDTO] = []
     
     @State private var anyCancellable: AnyCancellable? = nil
     @State private var error: String? = nil
@@ -25,7 +25,7 @@ struct SettingView: View {
     var body: some View {
         Form {
             Section(content: {
-                SecureField("Key:", text: .init(get: {
+                DisplayableSecureField("Key:", text: .init(get: {
                     return key ?? ""
                 }, set: { value in
                     key = value
@@ -61,7 +61,7 @@ struct SettingView: View {
                     .tryMap({ 
                         $0.data
                     })
-                    .decode(type: ResponseDTO<ListData<AccountDTO>>.self, decoder: JSONDecoder())
+                    .decode(type: TanshuResponseDTO<TanshuListData<TanshuAccountDTO>>.self, decoder: JSONDecoder())
                     .receive(on: DispatchQueue.main)
                     .eraseToAnyPublisher()
                     .sink { error in
@@ -78,8 +78,8 @@ struct SettingView: View {
             }
             
             Section(content: {
-                SecureField("AppID:", text: $youdaoAppId)
-                SecureField("AppKey:", text: $youdaoAppKey)
+                DisplayableSecureField("AppID:", text: $youdaoAppId)
+                DisplayableSecureField("AppKey:", text: $youdaoAppKey)
             }, header: {
                 Text("有道翻译")
                     .font(.largeTitle)

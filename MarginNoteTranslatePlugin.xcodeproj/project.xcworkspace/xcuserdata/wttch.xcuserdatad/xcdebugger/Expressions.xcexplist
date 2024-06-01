@@ -9,6 +9,9 @@
          contextName = "closure #2 in ContentView.body.getter:ContentView.swift">
       </ContextState>
       <ContextState
+         contextName = "closure #1 in YoudaoAPI.translate(_:):YoudaoAPI.swift">
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in TanshuAPI.translate(_:key:):TanshuAPI.swift">
          <PersistentStrings>
             <PersistentString

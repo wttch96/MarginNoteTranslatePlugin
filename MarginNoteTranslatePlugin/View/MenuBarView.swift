@@ -16,7 +16,7 @@ class MenuBarViewModel: ObservableObject {
     
     @Published var error: String? = nil
     
-    @Published var accounts: [AccountDTO] = []
+    @Published var accounts: [TanshuAccountDTO] = []
     
     private var anyCancellable: AnyCancellable? = nil
     

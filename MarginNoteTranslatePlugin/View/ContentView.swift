@@ -23,77 +23,21 @@ struct ContentView: View {
     @AppStorage("youdao-app-id") var youdaoAppId: String = ""
     @AppStorage("youdao-app-key") var youdaoAppKey: String = ""
     
-    @State private var keywords: String = ""
-    @State private var translateResult: String = ""
-    @State private var anyCancellabel: AnyCancellable? = nil
+    
+    @StateObject private var vm = ContentViewModel()
     
     @State private var histories: [History] = []
     @State private var showHistory = false
-    
-    @AppStorage("float") private var float = true
+    @AppStorage("float") private var float = false
     
     
     var body: some View {
         HStack {
             if showHistory {
-                ScrollView {
-                    VStack {
-                        ForEach(histories.reversed(), id:\.text) { history in
-                            VStack(alignment: .leading) {
-                                HStack {
-                                    Text(history.text)
-                                        .lineLimit(1)
-                                    Spacer()
-                                }
-                                HStack {
-                                    Text(history.result)
-                                        .lineLimit(1)
-                                    Spacer()
-                                }
-                            }
-                            .padding(4)
-                            .frame(width: 160)
-                            .font(.footnote)
-                            .background {
-                                RoundedRectangle(cornerRadius: 4)
-                                    .fill(.white.opacity(0.1))
-                            }
-                            .onTapGesture(perform: {
-                                self.keywords = history.text
-                                self.translateResult = history.result
-                            })
-                        }
-                    }
-                }
+                historyView
             }
             
             VStack(alignment: .leading) {
-                HStack {
-                    Button(action: {
-                        withAnimation(.spring) {
-                            showHistory.toggle()
-                        }
-                    }, label: {
-                        Image(systemName: "sidebar.left")
-                    })
-                    Button(action: {
-                        openWindow(id: "SettingWindow")
-                    }, label: {
-                        Image(systemName: "gearshape.fill")
-                    })
-                    Spacer()
-                    Image(systemName: "pin")
-                        .bold()
-                        .foregroundColor(.accentColor)
-                        .rotationEffect(float ? .zero : .init(radians: .pi/4))
-                        .animation(.spring, value: float)
-                        .onTapGesture {
-                            float.toggle()
-                            if let window = NSApplication.shared.windows.first(where: { $0.title.contains("MarginNote插件")}) {
-                                window.level = float ? .floating : .normal
-                            }
-                        }
-                }
                 VStack {
                     HStack(spacing: 0) {
                         Text("英文")
@@ -102,7 +46,7 @@ struct ContentView: View {
                             .offset(x: 4)
                         Spacer()
                     }
-                    TextEditor(text: $keywords)
+                    TextEditor(text: $vm.keywords)
                         .bold()
                         .font(.title3)
                     
@@ -129,7 +73,7 @@ struct ContentView: View {
                             .foregroundColor(.accentColor)
                         Spacer()
                     }
-                    TextEditor(text: $translateResult)
+                    TextEditor(text: $vm.translateResult)
                         .bold()
                         .font(.title3)
                         .foregroundColor(.accentColor)
@@ -141,15 +85,21 @@ struct ContentView: View {
                             .foregroundColor(.accentColor.opacity(0.6))
                             .onTapGesture {
                                 NSPasteboard.general.clearContents()
-                                NSPasteboard.general.setString(translateResult, forType: .string)
+                                NSPasteboard.general.setString(vm.translateResult, forType: .string)
                             }
                         Spacer()
+                        
+                        if let error = vm.error {
+                            Text(error)
+                                .font(.caption)
+                                .foregroundColor(.red)
+                        }
                     }
                 }
                 .padding(8)
                 .background {
                     RoundedRectangle(cornerRadius: 8)
-                        .fill(.black.opacity(0.2))
+                        .fill(.gray.opacity(0.2))
                 }
             }
             .textEditorStyle(.plain)
@@ -157,32 +107,121 @@ struct ContentView: View {
         .padding()
         .onOpenURL(perform: { url in
             if let url = url.absoluteString.removingPercentEncoding {
-                keywords = url.replacing("WttchTranslate://keyword/", with: "")
-                
-//                if let key = key {
-//                    anyCancellabel = TanshuAPI.shared.translate(keywords, key: key)
-//                        .sink(receiveCompletion: { error in
-//                            print(error)
-//                        }, receiveValue: { result in
-//                            self.translateResult = result
-//                            histories.append(History(text: keywords, result: self.translateResult))
-//                        })
-//                }
-                anyCancellabel = YoudaoAPI.shared.translate(keywords, appId: youdaoAppId, appKey: youdaoAppKey)
-                    .sink { error in
-                        print(error)
-                    } receiveValue: { value in
-                        print(value)
-                    }
-
+                vm.keywords = url.replacing("WttchTranslate://keyword/", with: "")
+                vm.translate()
             }
         })
-        .background {
-            RoundedRectangle(cornerRadius: 12)
-                .fill(.gray)
-        }
+//        .background {
+//            RoundedRectangle(cornerRadius: 12)
+//                .fill(.bar)
+//        }
+        .toolbar(content: {
+            ToolbarItem( placement: .navigation,  content: {
+                historyButton
+            })
+            ToolbarItem(placement: .navigation) {
+                settingButton
+            }
+            ToolbarItem(placement: .navigation) {
+                apiPicker
+            }
+            ToolbarItem(placement: .cancellationAction, content: {
+                pinButton
+            })
+        })
     }
 }
+
+
+// MARK: 子视图
+extension ContentView {
+    // 左侧历史记录
+    @ViewBuilder
+    private var historyView: some View {
+        ScrollView {
+            VStack {
+                ForEach(histories.reversed(), id:\.text) { history in
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text(history.text)
+                                .lineLimit(1)
+                            Spacer()
+                        }
+                        HStack {
+                            Text(history.result)
+                                .lineLimit(1)
+                            Spacer()
+                        }
+                    }
+                    .padding(4)
+                    .frame(width: 160)
+                    .font(.footnote)
+                    .background {
+                        RoundedRectangle(cornerRadius: 4)
+                            .fill(.white.opacity(0.1))
+                    }
+                    .onTapGesture(perform: {
+                        self.vm.keywords = history.text
+                        self.vm.translateResult = history.result
+                    })
+                }
+            }
+        }
+    }
+    
+    // 使用的 API 的选择器
+    @ViewBuilder
+    private var apiPicker: some View {
+        Picker("", selection: $vm.api, content: {
+            ForEach(APIType.allCases) { api in
+                Text(api.name)
+                    .tag(api)
+            }
+        })
+        .frame(width: 120)
+    }
+    
+    // 显示历史记录的 Button
+    @ViewBuilder
+    private var historyButton: some View {
+        Button(action: {
+            withAnimation(.spring) {
+                showHistory.toggle()
+            }
+        }, label: {
+            Image(systemName: "sidebar.left")
+                .font(.title3)
+                .offset(y: 1.5)
+        })
+    }
+    
+    // 打开设置页面的 Button
+    @ViewBuilder
+    private var settingButton: some View {
+        Button(action: {
+            openWindow(id: "SettingWindow")
+        }, label: {
+            Image(systemName: "gearshape.fill")
+        })
+    }
+    
+    // pin Button
+    @ViewBuilder
+    private var pinButton: some View {
+        Image(systemName: "pin")
+            .bold()
+            .foregroundColor(.accentColor)
+            .rotationEffect(float ? .zero : .init(radians: .pi/4))
+            .animation(.spring, value: float)
+            .onTapGesture {
+                float.toggle()
+                if let window = NSApplication.shared.windows.first(where: { $0.title == ""}) {
+                    window.level = float ? .floating : .normal
+                }
+            }
+    }
+}
+
 
 #Preview {
     ContentView()

@@ -9,11 +9,17 @@ import Foundation
 import CryptoKit
 import Combine
 
+
+/// 有道翻译 API
 class YoudaoAPI {
+    public static let appIdKey = "youdao-app-id"
+    public static let appKeyKey = "youdao-app-key"
+    
     public static let shared = YoudaoAPI()
     
     private init() {}
     
+    // 将输入转换为 {input} 方便签名使用
     private func toInput(_ q: String) -> String {
         let length = q.count
         
@@ -30,7 +36,13 @@ class YoudaoAPI {
         }
     }
     
-    func translate(_ text: String, appId: String, appKey: String) -> AnyPublisher<String, any Error> {
+    func translate(_ text: String) -> AnyPublisher<YoudaoResponseDTO, ApiError> {
+        guard let appId = UserDefaults.standard.value(forKey: YoudaoAPI.appIdKey),
+              let appKey = UserDefaults.standard.value(forKey: YoudaoAPI.appKeyKey) else {
+            return Fail(outputType: YoudaoResponseDTO.self, failure: ApiError.keyNotFound(.youdao))
+                .eraseToAnyPublisher()
+        }
+        
         let url = URL(string: "https://openapi.youdao.com/api")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -55,10 +67,23 @@ class YoudaoAPI {
         
         return URLSession.shared.dataTaskPublisher(for: request)
             .subscribe(on: DispatchQueue.global(qos: .background))
-            .tryMap({ $0.data })
-            .tryMap({ String(data: $0, encoding: .utf8)! })
+            .map({
+                $0.data
+            })
+            .decode(type: YoudaoResponseDTO.self, decoder: JSONDecoder())
+            .tryMap({ resp in
+                if resp.errorCode == "0" {
+                    return resp
+                }
+                
+                throw ApiError.serviceError(.youdao, resp.errorCode)
+            })
             .receive(on: DispatchQueue.main)
+            .mapError({
+                $0 is ApiError ? $0 as! ApiError : ApiError.unknown(.youdao, $0)
+            })
             .eraseToAnyPublisher()
+        
     }
 }
 
