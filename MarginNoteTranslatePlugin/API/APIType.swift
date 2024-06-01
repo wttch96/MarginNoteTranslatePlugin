@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 
 enum APIType: String, CaseIterable, Identifiable {
@@ -25,5 +26,13 @@ extension APIType {
         ]
         
         return names[self]!
+    }
+    
+    var color: Color {
+        let colors: [APIType: Color] = [
+            .tanshu: .green,
+            .youdao: .red
+        ]
+        return colors[self]!
     }
 }

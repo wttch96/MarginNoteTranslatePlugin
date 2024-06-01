@@ -9,24 +9,17 @@ import SwiftUI
 import Combine
 
 struct History: Identifiable {
-    var id: String {
-        return text
-    }
+    let id: String = UUID().uuidString
+    let api: APIType
     let text: String
     let result: String
 }
 
 struct ContentView: View {
     @Environment(\.openWindow) var openWindow
-    @AppStorage("key") var tanshuKey: String?
-    // 有道翻译
-    @AppStorage("youdao-app-id") var youdaoAppId: String = ""
-    @AppStorage("youdao-app-key") var youdaoAppKey: String = ""
-    
     
     @StateObject private var vm = ContentViewModel()
     
-    @State private var histories: [History] = []
     @State private var showHistory = false
     @AppStorage("float") private var float = false
     
@@ -63,6 +56,9 @@ struct ContentView: View {
                                 Circle()
                                     .fill(.gray)
                             }
+                            .onTapGesture {
+                                vm.translate()
+                            }
                     }
                     
                     HStack {
@@ -80,13 +76,9 @@ struct ContentView: View {
                     
                     
                     HStack {
-                        Image(systemName: "doc.on.doc")
-                            .font(.title3)
-                            .foregroundColor(.accentColor.opacity(0.6))
-                            .onTapGesture {
-                                NSPasteboard.general.clearContents()
-                                NSPasteboard.general.setString(vm.translateResult, forType: .string)
-                            }
+                        if !vm.translateResult.isEmpty {
+                            PasteboardButton(text: vm.translateResult)
+                        }
                         Spacer()
                         
                         if let error = vm.error {
@@ -140,9 +132,16 @@ extension ContentView {
     private var historyView: some View {
         ScrollView {
             VStack {
-                ForEach(histories.reversed(), id:\.text) { history in
+                ForEach(vm.histories.reversed(), id:\.text) { history in
                     VStack(alignment: .leading) {
                         HStack {
+                            Text(history.api.name)
+                                .font(.system(size: 8))
+                                .padding(2)
+                                .background(content: {
+                                    RoundedRectangle(cornerRadius: 4)
+                                        .fill(history.api.color)
+                                })
                             Text(history.text)
                                 .lineLimit(1)
                             Spacer()
@@ -167,6 +166,7 @@ extension ContentView {
                 }
             }
         }
+        .frame(width: 160)
     }
     
     // 使用的 API 的选择器

@@ -22,6 +22,7 @@
 		49250D942C06DA8D0026C681 /* IdentifiableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D932C06DA8D0026C681 /* IdentifiableView.swift */; };
 		49769F572C09B6DD00AA8A4D /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49769F562C09B6DD00AA8A4D /* Errors.swift */; };
 		49769F5B2C09BAB100AA8A4D /* YoudaoResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49769F5A2C09BAB100AA8A4D /* YoudaoResponseDTO.swift */; };
+		49769F5D2C0B0B9E00AA8A4D /* PasteboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49769F5C2C0B0B9E00AA8A4D /* PasteboardButton.swift */; };
 		49FDC5AD2C076CCF003793F1 /* YoudaoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDC5AC2C076CCF003793F1 /* YoudaoAPI.swift */; };
 		49FDC5B22C0804DB003793F1 /* DisplayableSecureField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDC5B12C0804DB003793F1 /* DisplayableSecureField.swift */; };
 		49FDC5B52C080E20003793F1 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDC5B42C080E20003793F1 /* ContentViewModel.swift */; };
@@ -67,6 +68,7 @@
 		49250D932C06DA8D0026C681 /* IdentifiableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableView.swift; sourceTree = "<group>"; };
 		49769F562C09B6DD00AA8A4D /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		49769F5A2C09BAB100AA8A4D /* YoudaoResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoudaoResponseDTO.swift; sourceTree = "<group>"; };
+		49769F5C2C0B0B9E00AA8A4D /* PasteboardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardButton.swift; sourceTree = "<group>"; };
 		49FDC5AC2C076CCF003793F1 /* YoudaoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoudaoAPI.swift; sourceTree = "<group>"; };
 		49FDC5AE2C08020B003793F1 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		49FDC5AF2C08020B003793F1 /* 2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 2.gif; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				49FDC5B12C0804DB003793F1 /* DisplayableSecureField.swift */,
+				49769F5C2C0B0B9E00AA8A4D /* PasteboardButton.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49250D882C05E82A0026C681 /* SettingView.swift in Sources */,
+				49769F5D2C0B0B9E00AA8A4D /* PasteboardButton.swift in Sources */,
 				49250D5D2C05C41F0026C681 /* ContentView.swift in Sources */,
 				49250D922C06D66A0026C681 /* WindowContext.swift in Sources */,
 				49250D8E2C06059F0026C681 /* TanshuAPI.swift in Sources */,
@@ -427,6 +431,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -490,6 +495,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -520,6 +526,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"MarginNoteTranslatePlugin/Preview Content\"";
 				DEVELOPMENT_TEAM = MYB5299FCX;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -549,6 +556,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"MarginNoteTranslatePlugin/Preview Content\"";
 				DEVELOPMENT_TEAM = MYB5299FCX;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -576,6 +584,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = MYB5299FCX;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
@@ -595,6 +604,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = MYB5299FCX;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
@@ -613,6 +623,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = MYB5299FCX;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
@@ -630,6 +641,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = MYB5299FCX;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;

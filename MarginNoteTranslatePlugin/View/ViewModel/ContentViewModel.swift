@@ -24,8 +24,10 @@ class ContentViewModel: ObservableObject {
     // 是否出错
     @Published var error: String? = nil
     
+    @Published var histories: [History] = []
+    
     public func translate() {
-        guard !transalting else {
+        guard !transalting && !keywords.isEmpty else {
             // 多次提交
             return
         }
@@ -34,6 +36,7 @@ class ContentViewModel: ObservableObject {
         
         transalting = true
         error = nil
+        translateResult = ""
         
         if api == .tanshu {
             anyCancellabel = TanshuAPI.shared.translate(keywords)
@@ -54,6 +57,7 @@ class ContentViewModel: ObservableObject {
                     self.transalting = false
                 }, receiveValue: { data in
                     self.translateResult = data
+                    self.histories.append(History(api: .tanshu, text: self.keywords, result: self.translateResult))
                 })
             return
         }
@@ -76,6 +80,7 @@ class ContentViewModel: ObservableObject {
                     self.transalting = false
                 }, receiveValue: { data in
                     self.translateResult = data.translation?.first ?? "<None>"
+                    self.histories.append(History(api: .youdao, text: self.keywords, result: self.translateResult))
                 })
 
             return
