@@ -38,8 +38,22 @@ class ContentViewModel: ObservableObject {
         if api == .tanshu {
             anyCancellabel = TanshuAPI.shared.translate(keywords)
                 .sink(receiveCompletion: { completion in
-                    
+                    switch completion {
+                    case .finished:
+                        break
+                    case .failure(let error):
+                        switch error {
+                        case .keyNotFound(let type):
+                            self.error = "[\(type.name)]API Key 未找到, 请在设置中配置..."
+                        case .serviceError(let type, let code):
+                            self.error = "[\(type.name)]服务错误: 代码(\(code)."
+                        case .unknown(let apiType, let error):
+                            self.error = "[\(apiType.name)]未知错误: \(type(of: error)): \(error.localizedDescription)"
+                        }
+                    }
+                    self.transalting = false
                 }, receiveValue: { data in
+                    self.translateResult = data
                 })
             return
         }

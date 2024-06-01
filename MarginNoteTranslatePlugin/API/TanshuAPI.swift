@@ -8,9 +8,6 @@
 import Foundation
 import Combine
 
-enum TanshuAPIError: Error {
-    case error(String)
-}
 
 /// 探数 API
 class TanshuAPI {
@@ -21,6 +18,11 @@ class TanshuAPI {
     
     // 获取账户 API 的使用情况
     public func accounts(_ key: String) -> AnyPublisher<[TanshuAccountDTO], any Error> {
+        guard let key = UserDefaults.standard.string(forKey: TanshuAPI.apiKey) else {
+            return Fail(outputType: [TanshuAccountDTO].self, failure: ApiError.keyNotFound(.tanshu))
+                .eraseToAnyPublisher()
+        }
+        
         let req = URLRequest(url: URL(string: "https://api.tanshuapi.com/api/account_info/v1/index?key=\(key)")!)
         return URLSession.shared.dataTaskPublisher(for: req)
             .subscribe(on: DispatchQueue.global(qos: .background))
@@ -32,14 +34,15 @@ class TanshuAPI {
                 if $0.code == 1 {
                     return $0.data.list
                 } else {
-                    throw TanshuAPIError.error($0.msg)
+                    throw ApiError.serviceError(.tanshu, "\($0.code)")
                 }
             })
             .receive(on: DispatchQueue.main)
+            .mapError({ $0 is ApiError ? $0 as! ApiError : ApiError.unknown(.tanshu, $0) })
             .eraseToAnyPublisher()
     }
     
-    public func translate(_ keywords: String) -> AnyPublisher<String, any Error> {
+    public func translate(_ keywords: String) -> AnyPublisher<String, ApiError> {
         guard let key = UserDefaults.standard.string(forKey: TanshuAPI.apiKey) else {
             return Fail(outputType: String.self, failure: ApiError.keyNotFound(.tanshu))
                 .eraseToAnyPublisher()
@@ -65,11 +68,12 @@ class TanshuAPI {
                 if $0.code == 1 {
                     return $0.data
                 } else {
-                    throw TanshuAPIError.error($0.msg)
+                    throw ApiError.serviceError(.tanshu, "\($0.code)")
                 }
             })
             .map { $0.text }
             .receive(on: DispatchQueue.main)
+            .mapError({ $0 is ApiError ? $0 as! ApiError : ApiError.unknown(.tanshu, $0) })
             .eraseToAnyPublisher()
     }
 }
