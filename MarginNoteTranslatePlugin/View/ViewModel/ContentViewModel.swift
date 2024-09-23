@@ -23,6 +23,14 @@ class ContentViewModel: ObservableObject {
     @Published var transalting = false
     // 是否出错
     @Published var error: String? = nil
+    // 是否自动翻译
+    @Published var autoTransaltae = true
+    
+    @Published var from: Language = .en
+    @Published var to: Language = .zh
+    
+    // 简洁模式
+    @Published var concise: Bool = false
     
     @Published var histories: [History] = []
     

@@ -17,7 +17,7 @@ class TanshuAPI {
     private init() { }
     
     // 获取账户 API 的使用情况
-    public func accounts(_ key: String) -> AnyPublisher<[TanshuAccountDTO], any Error> {
+    public func accounts() -> AnyPublisher<[TanshuAccountDTO], any Error> {
         guard let key = UserDefaults.standard.string(forKey: TanshuAPI.apiKey) else {
             return Fail(outputType: [TanshuAccountDTO].self, failure: ApiError.keyNotFound(.tanshu))
                 .eraseToAnyPublisher()

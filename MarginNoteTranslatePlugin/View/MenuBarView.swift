@@ -10,7 +10,6 @@ import Combine
 
 
 class MenuBarViewModel: ObservableObject {
-    @AppStorage("key") private var key: String?
     
     @Published var loading = false
     
@@ -23,11 +22,6 @@ class MenuBarViewModel: ObservableObject {
     func loadAccounts() {
         guard !self.loading else { return }
         
-        guard let key = self.key else {
-            self.error = "未找到 api key."
-            print("未找到 探数 API key...")
-            return
-        }
         
         print("开始加载探数 API 使用情况...")
     
@@ -37,7 +31,7 @@ class MenuBarViewModel: ObservableObject {
             self.error = nil
         }
         
-        anyCancellable = TanshuAPI.shared.accounts(key)
+        anyCancellable = TanshuAPI.shared.accounts()
             .sink { error in
                 self.loading = false
                 switch error {

@@ -7,6 +7,8 @@
 
 import SwiftUI
 import Combine
+import ApplicationServices
+import AppKit
 
 struct History: Identifiable {
     let id: String = UUID().uuidString
@@ -33,40 +35,65 @@ struct ContentView: View {
             VStack(alignment: .leading) {
                 VStack {
                     HStack(spacing: 0) {
-                        Text("英文")
-                            .font(.footnote)
-                            .bold()
-                            .offset(x: 4)
+                        Menu(vm.from.name, content: {
+                            ForEach(Language.allCases, id:\.self) { lang in
+                                Button(action: {
+                                    self.vm.from = lang
+                                }, label: {
+                                    Text(lang.name)
+                                })
+                            }
+                        })
+                        .menuStyle(BorderlessButtonMenuStyle())
+                        .font(.footnote)
+                        .frame(width: 40)
                         Spacer()
+                        
+                        if vm.concise {
+                            conciseToggle
+                        }
                     }
                     TextEditor(text: $vm.keywords)
                         .bold()
                         .font(.title3)
                     
-                    ZStack {
-                        Rectangle()
-                            .fill(.gray)
-                            .frame(height: 1)
-                        
-                        Image(systemName: "arrow.triangle.swap")
-                            .foregroundColor(.accentColor)
-                            .padding(6)
-                            .scaleEffect(y: -1)
-                            .background {
-                                Circle()
-                                    .fill(.gray)
-                            }
-                            .onTapGesture {
-                                vm.translate()
-                            }
+                    if !vm.concise {
+                        ZStack {
+                            Rectangle()
+                                .fill(.gray)
+                                .frame(height: 1)
+                            
+                            Image(systemName: "arrow.triangle.swap")
+                                .foregroundColor(.accentColor)
+                                .padding(6)
+                                .scaleEffect(y: -1)
+                                .background {
+                                    Circle()
+                                        .fill(.gray)
+                                }
+                                .onTapGesture {
+                                    vm.translate()
+                                }
+                        }
                     }
-                    
                     HStack {
-                        Text("结果")
+                        Text(vm.to.name)
                             .font(.footnote)
                             .bold()
                             .offset(x: 4)
                             .foregroundColor(.accentColor)
+                        Menu("", content: {
+                            ForEach(Language.allCases, id:\.self) { lang in
+                                Button(action: {
+                                    self.vm.to = lang
+                                }, label: {
+                                    Text(lang.name)
+                                })
+                            }
+                        })
+                        .menuStyle(BorderlessButtonMenuStyle())
+                        .frame(width: 48)
+                        .offset(x: -24)
                         Spacer()
                     }
                     TextEditor(text: $vm.translateResult)
@@ -96,32 +123,101 @@ struct ContentView: View {
             }
             .textEditorStyle(.plain)
         }
-        .padding()
-        .onOpenURL(perform: { url in
-            if let url = url.absoluteString.removingPercentEncoding {
-                vm.keywords = url.replacing("WttchTranslate://keyword/", with: "")
-                vm.translate()
-            }
-        })
+        .padding(vm.concise ? 0 : 20)
+        .onOpenURL(perform: self.onOpenURL)
 //        .background {
 //            RoundedRectangle(cornerRadius: 12)
 //                .fill(.bar)
 //        }
+        
+        .clipShape(vm.concise ? AnyShape(RoundedRectangle(cornerRadius: 8)) : AnyShape(Rectangle()))
         .toolbar(content: {
-            ToolbarItem( placement: .navigation,  content: {
-                historyButton
-            })
-            ToolbarItem(placement: .navigation) {
-                settingButton
+            if !vm.concise {
+                ToolbarItem( placement: .navigation,  content: {
+                    historyButton
+                })
+                ToolbarItem(placement: .navigation) {
+                    settingButton
+                }
+                ToolbarItem(placement: .navigation) {
+                    apiPicker
+                }
+                ToolbarItem(placement: .navigation) {
+                    autoTranslateButton
+                }
+                ToolbarItem(placement: .cancellationAction, content: {
+                    conciseToggle
+                })
+                ToolbarItem(placement: .cancellationAction, content: {
+                    pinButton
+                })
             }
-            ToolbarItem(placement: .navigation) {
-                apiPicker
-            }
-            ToolbarItem(placement: .cancellationAction, content: {
-                pinButton
-            })
         })
+        .onAppear {
+            let workspace = NSWorkspace.shared
+            for app in workspace.runningApplications {
+                print(getWindowsOfApplication(app))
+            }
+        }
+        .onChange(of: vm.concise) { oldValue, newValue in
+            var mask: NSWindow.StyleMask = []
+            if newValue {
+                // 简洁模式
+                mask = [.borderless, .resizable]
+                NSApplication.shared.windows.first?.backgroundColor = .clear
+                NSApplication.shared.windows.first?.hasShadow = false
+            } else {
+                // 正常模式
+                mask = [.titled, .closable, .miniaturizable, .resizable]
+                
+                NSApplication.shared.windows.first?.backgroundColor = .gray
+            }
+            NSApplication.shared.windows.first?.styleMask = mask
+            NSApplication.shared.windows.first?.isMovableByWindowBackground = true
+            
+            NSApplication.shared.windows.first?.level = float ? .floating : .normal
+        }
     }
+}
+
+// 获取指定应用程序的窗口列表
+func getWindowsOfApplication(_ app: NSRunningApplication) -> [AXUIElement] {
+    let appElement = AXUIElementCreateApplication(app.processIdentifier)
+    var windowList: CFTypeRef?
+    let result = AXUIElementCopyAttributeValue(appElement, kAXWindowsAttribute as CFString, &windowList)
+    
+    if result == .success, let windows = windowList as? [AXUIElement] {
+        return windows
+    }
+    return []
+}
+
+// 获取窗口的标题
+func getWindowTitle(_ window: AXUIElement) -> String? {
+    var title: AnyObject?
+    let result = AXUIElementCopyAttributeValue(window, kAXTitleAttribute as CFString, &title)
+    
+    if result == .success {
+        return title as? String
+    }
+    return nil
+}
+
+// MARK: 行为
+extension ContentView {
+    
+    private func onOpenURL(_ url: URL) {
+        if let url = url.absoluteString.removingPercentEncoding {
+            vm.keywords = url.replacing("WttchTranslate://keyword/", with: "")
+            if vm.autoTransaltae {
+                vm.translate()
+            }
+        }
+    }
+}
+
+struct TestMyApp {
+    
 }
 
 
@@ -195,6 +291,16 @@ extension ContentView {
         })
     }
     
+    // 简洁模式
+    @ViewBuilder
+    private var conciseToggle: some View {
+        Image(systemName: vm.concise ? "plus.circle" : "minus.circle")
+            .foregroundColor(.accentColor)
+            .onTapGesture {
+                vm.concise.toggle()
+            }
+    }
+    
     // 打开设置页面的 Button
     @ViewBuilder
     private var settingButton: some View {
@@ -219,6 +325,13 @@ extension ContentView {
                     window.level = float ? .floating : .normal
                 }
             }
+    }
+    
+    // 自动翻译
+    @ViewBuilder
+    private var autoTranslateButton: some View {
+        Toggle("自动翻译", isOn: $vm.autoTransaltae)
+            .toggleStyle(.checkbox)
     }
 }
 
