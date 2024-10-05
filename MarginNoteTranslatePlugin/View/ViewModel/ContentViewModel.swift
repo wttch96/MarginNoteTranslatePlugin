@@ -5,10 +5,12 @@
 //  Created by Wttch on 2024/5/30.
 //
 
-import Foundation
 import Combine
+import Foundation
+import SwiftLogMacro
 
-
+@Log
+@MainActor
 class ContentViewModel: ObservableObject {
     // 使用的 API
     @Published var api: APIType = .tanshu
@@ -34,39 +36,49 @@ class ContentViewModel: ObservableObject {
     
     @Published var histories: [History] = []
     
+    public func tanshuTranslate(_ keywords: String) {
+        guard let apiKey = UserDefaults.standard.string(forKey: TanshuAPI.apiKey) else {
+            error = "[\(APIType.tanshu.name)]API Key 未找到, 请在设置中配置..."
+            transalting = false
+            return
+        }
+        Task.detached { @MainActor in
+            do {
+                let result = try await TanshuAPI.shared.translate(self.keywords, apiKey: apiKey)
+                self.translateResult = result
+                self.histories.append(History(api: .tanshu, text: self.keywords, result: self.translateResult))
+            } catch {
+                guard let error = error as? ApiError else { return }
+                
+                switch error {
+                case .keyNotFound(let type):
+                    self.error = "[\(type.name)]API Key 未找到, 请在设置中配置..."
+                case .serviceError(let type, let code):
+                    self.error = "[\(type.name)]服务错误: 代码(\(code)."
+                case .unknown(let apiType, let error):
+                    self.error = "[\(apiType.name)]未知错误: \(type(of: error)): \(error.localizedDescription)"
+                case .url(let apiType, let urlString):
+                    self.error = "URL 错误: \(urlString)"
+                }
+            }
+            self.transalting = false
+        }
+    }
+    
     public func translate() {
         guard !transalting && !keywords.isEmpty else {
             // 多次提交
             return
         }
         
-        print("[\(api.name)]翻译已提交...")
+        logger.info("[\(api.name)]翻译已提交...")
         
         transalting = true
         error = nil
         translateResult = ""
         
         if api == .tanshu {
-            anyCancellabel = TanshuAPI.shared.translate(keywords)
-                .sink(receiveCompletion: { completion in
-                    switch completion {
-                    case .finished:
-                        break
-                    case .failure(let error):
-                        switch error {
-                        case .keyNotFound(let type):
-                            self.error = "[\(type.name)]API Key 未找到, 请在设置中配置..."
-                        case .serviceError(let type, let code):
-                            self.error = "[\(type.name)]服务错误: 代码(\(code)."
-                        case .unknown(let apiType, let error):
-                            self.error = "[\(apiType.name)]未知错误: \(type(of: error)): \(error.localizedDescription)"
-                        }
-                    }
-                    self.transalting = false
-                }, receiveValue: { data in
-                    self.translateResult = data
-                    self.histories.append(History(api: .tanshu, text: self.keywords, result: self.translateResult))
-                })
+            self.tanshuTranslate(keywords)
             return
         }
         if api == .youdao {
@@ -83,6 +95,8 @@ class ContentViewModel: ObservableObject {
                             self.error = "[\(type.name)]服务错误: 代码(\(code)."
                         case .unknown(let apiType, let error):
                             self.error = "[\(apiType.name)]未知错误: \(type(of: error)): \(error.localizedDescription)"
+                        case .url(let apiType, let urlString):
+                            self.error = "URL 错误: \(urlString)"
                         }
                     }
                     self.transalting = false

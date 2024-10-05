@@ -11,6 +11,8 @@ import Foundation
 enum ApiError: Error {
     // api key 不存在
     case keyNotFound(APIType)
+    // URL 错误
+    case url(APIType, String)
     // 服务错误
     case serviceError(APIType, String)
     // 未知错误
