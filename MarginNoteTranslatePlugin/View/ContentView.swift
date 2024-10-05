@@ -5,10 +5,10 @@
 //  Created by Wttch on 2024/5/28.
 //
 
-import SwiftUI
-import Combine
-import ApplicationServices
 import AppKit
+import ApplicationServices
+import Combine
+import SwiftUI
 
 struct History: Identifiable {
     let id: String = UUID().uuidString
@@ -25,7 +25,6 @@ struct ContentView: View {
     @State private var showHistory = false
     @AppStorage("float") private var float = false
     
-    
     var body: some View {
         HStack {
             if showHistory {
@@ -35,18 +34,18 @@ struct ContentView: View {
             VStack(alignment: .leading) {
                 VStack {
                     HStack(spacing: 0) {
-                        Menu(vm.from.name, content: {
-                            ForEach(Language.allCases, id:\.self) { lang in
-                                Button(action: {
-                                    self.vm.from = lang
-                                }, label: {
-                                    Text(lang.name)
-                                })
-                            }
-                        })
-                        .menuStyle(BorderlessButtonMenuStyle())
-                        .font(.footnote)
-                        .frame(width: 40)
+//                        Menu(vm.from.name, content: {
+//                            ForEach(Language.allCases, id: \.self) { lang in
+//                                Button(action: {
+//                                    self.vm.from = lang
+//                                }, label: {
+//                                    Text(lang.name)
+//                                })
+//                            }
+//                        })
+//                        .menuStyle(BorderlessButtonMenuStyle())
+//                        .font(.footnote)
+//                        .frame(width: 40)
                         Spacer()
                         
                         if vm.concise {
@@ -55,7 +54,7 @@ struct ContentView: View {
                     }
                     TextEditor(text: $vm.keywords)
                         .bold()
-                        .font(.title3)
+                        .font(.subheadline)
                     
                     if !vm.concise {
                         ZStack {
@@ -76,55 +75,37 @@ struct ContentView: View {
                                 }
                         }
                     }
-                    HStack {
-                        Text(vm.to.name)
-                            .font(.footnote)
+                    ZStack {
+                        TextEditor(text: $vm.translateResult)
                             .bold()
-                            .offset(x: 4)
+                            .font(.subheadline)
                             .foregroundColor(.accentColor)
-                        Menu("", content: {
-                            ForEach(Language.allCases, id:\.self) { lang in
-                                Button(action: {
-                                    self.vm.to = lang
-                                }, label: {
-                                    Text(lang.name)
-                                })
-                            }
-                        })
-                        .menuStyle(BorderlessButtonMenuStyle())
-                        .frame(width: 48)
-                        .offset(x: -24)
-                        Spacer()
-                    }
-                    TextEditor(text: $vm.translateResult)
-                        .bold()
-                        .font(.title3)
-                        .foregroundColor(.accentColor)
-                    
-                    
-                    HStack {
-                        if !vm.translateResult.isEmpty {
-                            PasteboardButton(text: vm.translateResult)
-                        }
-                        Spacer()
                         
-                        if let error = vm.error {
-                            Text(error)
-                                .font(.caption)
-                                .foregroundColor(.red)
+                        VStack {
+                            Spacer()
+                            
+                            HStack {
+                                if !vm.translateResult.isEmpty {
+                                    PasteboardButton(text: vm.translateResult)
+                                }
+                                Spacer()
+                                
+                                if let error = vm.error {
+                                    Text(error)
+                                        .font(.caption)
+                                        .foregroundColor(.red)
+                                }
+                            }
                         }
                     }
                 }
                 .padding(8)
-                .background {
-                    RoundedRectangle(cornerRadius: 8)
-                        .fill(.gray.opacity(0.2))
-                }
+                .background(.ultraThinMaterial)
             }
             .textEditorStyle(.plain)
         }
         .padding(vm.concise ? 0 : 20)
-        .onOpenURL(perform: self.onOpenURL)
+        .onOpenURL(perform: onOpenURL)
 //        .background {
 //            RoundedRectangle(cornerRadius: 12)
 //                .fill(.bar)
@@ -133,7 +114,7 @@ struct ContentView: View {
         .clipShape(vm.concise ? AnyShape(RoundedRectangle(cornerRadius: 8)) : AnyShape(Rectangle()))
         .toolbar(content: {
             if !vm.concise {
-                ToolbarItem( placement: .navigation,  content: {
+                ToolbarItem(placement: .navigation, content: {
                     historyButton
                 })
                 ToolbarItem(placement: .navigation) {
@@ -159,7 +140,7 @@ struct ContentView: View {
                 print(getWindowsOfApplication(app))
             }
         }
-        .onChange(of: vm.concise) { oldValue, newValue in
+        .onChange(of: vm.concise) { _, newValue in
             var mask: NSWindow.StyleMask = []
             if newValue {
                 // 简洁模式
@@ -204,8 +185,8 @@ func getWindowTitle(_ window: AXUIElement) -> String? {
 }
 
 // MARK: 行为
+
 extension ContentView {
-    
     private func onOpenURL(_ url: URL) {
         if let url = url.absoluteString.removingPercentEncoding {
             vm.keywords = url.replacing("WttchTranslate://keyword/", with: "")
@@ -216,19 +197,17 @@ extension ContentView {
     }
 }
 
-struct TestMyApp {
-    
-}
-
+struct TestMyApp {}
 
 // MARK: 子视图
+
 extension ContentView {
     // 左侧历史记录
     @ViewBuilder
     private var historyView: some View {
         ScrollView {
             VStack {
-                ForEach(vm.histories.reversed(), id:\.text) { history in
+                ForEach(vm.histories.reversed(), id: \.text) { history in
                     VStack(alignment: .leading) {
                         HStack {
                             Text(history.api.name)
@@ -317,11 +296,11 @@ extension ContentView {
         Image(systemName: "pin")
             .bold()
             .foregroundColor(.accentColor)
-            .rotationEffect(float ? .zero : .init(radians: .pi/4))
+            .rotationEffect(float ? .zero : .init(radians: .pi / 4))
             .animation(.spring, value: float)
             .onTapGesture {
                 float.toggle()
-                if let window = NSApplication.shared.windows.first(where: { $0.title == ""}) {
+                if let window = NSApplication.shared.windows.first(where: { $0.title == "" }) {
                     window.level = float ? .floating : .normal
                 }
             }
@@ -335,7 +314,6 @@ extension ContentView {
     }
 }
 
-
-#Preview {
+#Preview(traits: .sizeThatFitsLayout) {
     ContentView()
 }

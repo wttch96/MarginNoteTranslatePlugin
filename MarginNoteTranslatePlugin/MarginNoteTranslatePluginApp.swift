@@ -15,6 +15,7 @@ struct MarginNoteTranslatePluginApp: App {
     var body: some Scene {
         Window("MarginNote插件", id: "WttchMarginNotePlugin", content: {
             ContentView()
+                .navigationTitle("")
         })
 
         Window("设置", id: "SettingWindow") {

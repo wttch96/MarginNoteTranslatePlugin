@@ -35,6 +35,7 @@ struct PasteboardButton: View {
                 }
                 Spacer()
             }
+            .font(.subheadline)
             .frame(width: 200)
         })
         .buttonStyle(PlainButtonStyle())
