@@ -8,6 +8,7 @@
 import AppKit
 import ApplicationServices
 import Combine
+import SwiftLogMacro
 import SwiftUI
 
 struct History: Identifiable {
@@ -17,6 +18,7 @@ struct History: Identifiable {
     let result: String
 }
 
+@Log("翻译页面", level: .debug)
 struct ContentView: View {
     @Environment(\.openWindow) var openWindow
     
@@ -104,60 +106,13 @@ struct ContentView: View {
             }
             .textEditorStyle(.plain)
         }
-        .padding(vm.concise ? 0 : 20)
         .onOpenURL(perform: onOpenURL)
-//        .background {
-//            RoundedRectangle(cornerRadius: 12)
-//                .fill(.bar)
-//        }
-        
         .clipShape(vm.concise ? AnyShape(RoundedRectangle(cornerRadius: 8)) : AnyShape(Rectangle()))
-        .toolbar(content: {
-            if !vm.concise {
-                ToolbarItem(placement: .navigation, content: {
-                    historyButton
-                })
-                ToolbarItem(placement: .navigation) {
-                    settingButton
-                }
-                ToolbarItem(placement: .navigation) {
-                    apiPicker
-                }
-                ToolbarItem(placement: .navigation) {
-                    autoTranslateButton
-                }
-                ToolbarItem(placement: .cancellationAction, content: {
-                    conciseToggle
-                })
-                ToolbarItem(placement: .cancellationAction, content: {
-                    pinButton
-                })
-            }
-        })
+        .toolbar(content: { toolbars })
         .onAppear {
-            let workspace = NSWorkspace.shared
-            for app in workspace.runningApplications {
-                print(getWindowsOfApplication(app))
-            }
+            self.onConciseChange(false, self.vm.concise)
         }
-        .onChange(of: vm.concise) { _, newValue in
-            var mask: NSWindow.StyleMask = []
-            if newValue {
-                // 简洁模式
-                mask = [.borderless, .resizable]
-                NSApplication.shared.windows.first?.backgroundColor = .clear
-                NSApplication.shared.windows.first?.hasShadow = false
-            } else {
-                // 正常模式
-                mask = [.titled, .closable, .miniaturizable, .resizable]
-                
-                NSApplication.shared.windows.first?.backgroundColor = .gray
-            }
-            NSApplication.shared.windows.first?.styleMask = mask
-            NSApplication.shared.windows.first?.isMovableByWindowBackground = true
-            
-            NSApplication.shared.windows.first?.level = float ? .floating : .normal
-        }
+        .onChange(of: vm.concise, onConciseChange(_:_:))
     }
 }
 
@@ -187,17 +142,37 @@ func getWindowTitle(_ window: AXUIElement) -> String? {
 // MARK: 行为
 
 extension ContentView {
+    /// 监听 URL
+    /// - Parameter url: URL 链接, 格式为 `WttchTranslate://keyword/要翻译文本`
     private func onOpenURL(_ url: URL) {
         if let url = url.absoluteString.removingPercentEncoding {
-            vm.keywords = url.replacing("WttchTranslate://keyword/", with: "")
+            let keywords = url.replacing("WttchTranslate://keyword/", with: "")
+            vm.keywords = keywords
+            logger.debug("收到翻译:\(keywords)")
             if vm.autoTransaltae {
                 vm.translate()
             }
         }
     }
+    
+    /// 精简模式切换
+    private func onConciseChange(_ _: Bool, _ concise: Bool) {
+        guard let window = NSApplication.shared.windows.first else { return }
+        if concise {
+            // 简洁模式
+            window.styleMask = [.borderless, .resizable]
+            window.backgroundColor = .clear
+            window.hasShadow = false
+        } else {
+            // 正常模式
+            window.styleMask = [.titled, .closable, .miniaturizable, .resizable]
+            window.backgroundColor = .gray
+            window.hasShadow = true
+        }
+        window.isMovableByWindowBackground = float
+        window.level = float ? .floating : .normal
+    }
 }
-
-struct TestMyApp {}
 
 // MARK: 子视图
 
@@ -253,8 +228,21 @@ extension ContentView {
                     .tag(api)
             }
         })
-        .frame(width: 120)
+        .frame(width: 72)
     }
+    
+    @ViewBuilder
+    // 探数 API 翻译引擎选择
+    private var tanshuTypePicker: some View {
+        Picker("", selection: $vm.tanshuType) {
+            ForEach(TanshuAPIType.allCases, id: \.rawValue) { api in
+                Text(api.rawValue)
+                    .tag(api)
+            }
+        }
+        .frame(width: 72)
+    }
+    
     
     // 显示历史记录的 Button
     @ViewBuilder
@@ -311,6 +299,36 @@ extension ContentView {
     private var autoTranslateButton: some View {
         Toggle("自动翻译", isOn: $vm.autoTransaltae)
             .toggleStyle(.checkbox)
+    }
+    
+    // 工具栏
+    @ToolbarContentBuilder
+    private var toolbars: some ToolbarContent {
+        if !vm.concise {
+            ToolbarItem(placement: .navigation, content: {
+                historyButton
+            })
+            ToolbarItem(placement: .navigation) {
+                settingButton
+            }
+            ToolbarItem(placement: .navigation) {
+                apiPicker
+            }
+            if vm.api == .tanshu {
+                ToolbarItem(placement: .navigation) {
+                    tanshuTypePicker
+                }
+            }
+            ToolbarItem(placement: .navigation) {
+                autoTranslateButton
+            }
+            ToolbarItem(placement: .cancellationAction, content: {
+                conciseToggle
+            })
+            ToolbarItem(placement: .cancellationAction, content: {
+                pinButton
+            })
+        }
     }
 }
 

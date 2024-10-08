@@ -12,6 +12,7 @@ import SwiftUI
 enum APIType: String, CaseIterable, Identifiable {
     case tanshu = "Tanshu"
     case youdao = "Youdao"
+    case xunfei = "Xunfei"
     
     var id: String {
         return self.rawValue
@@ -23,6 +24,7 @@ extension APIType {
         let names: [APIType: String] = [
             .tanshu: "探数",
             .youdao: "有道",
+            .xunfei: "讯飞",
         ]
         
         return names[self]!
@@ -31,7 +33,8 @@ extension APIType {
     var color: Color {
         let colors: [APIType: Color] = [
             .tanshu: .green,
-            .youdao: .red
+            .youdao: .red,
+            .xunfei: .blue
         ]
         return colors[self]!
     }

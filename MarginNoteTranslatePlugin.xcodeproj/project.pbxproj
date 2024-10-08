@@ -24,6 +24,12 @@
 		49769F5B2C09BAB100AA8A4D /* YoudaoResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49769F5A2C09BAB100AA8A4D /* YoudaoResponseDTO.swift */; };
 		49769F5D2C0B0B9E00AA8A4D /* PasteboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49769F5C2C0B0B9E00AA8A4D /* PasteboardButton.swift */; };
 		497A09682C114EB30051C0E0 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497A09672C114EB30051C0E0 /* Language.swift */; };
+		49ADFA6C2CB16ADD007EA3D4 /* TanshuAPIType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ADFA6B2CB16ADD007EA3D4 /* TanshuAPIType.swift */; };
+		49ADFA6F2CB17199007EA3D4 /* SwiftLogMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 49ADFA6E2CB17199007EA3D4 /* SwiftLogMacro */; };
+		49C93CC32CB5671B00143FFB /* XunfeiAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C93CC22CB5671B00143FFB /* XunfeiAPI.swift */; };
+		49C93CC52CB5876400143FFB /* SettingKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C93CC42CB5876400143FFB /* SettingKeys.swift */; };
+		49C93CC72CB58CFA00143FFB /* XunfeiAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C93CC62CB58CFA00143FFB /* XunfeiAPIResponse.swift */; };
+		49C93CC92CB58D2600143FFB /* XunfeiTranslateResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C93CC82CB58D2600143FFB /* XunfeiTranslateResult.swift */; };
 		49FDC5AD2C076CCF003793F1 /* YoudaoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDC5AC2C076CCF003793F1 /* YoudaoAPI.swift */; };
 		49FDC5B22C0804DB003793F1 /* DisplayableSecureField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDC5B12C0804DB003793F1 /* DisplayableSecureField.swift */; };
 		49FDC5B52C080E20003793F1 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDC5B42C080E20003793F1 /* ContentViewModel.swift */; };
@@ -71,6 +77,11 @@
 		49769F5A2C09BAB100AA8A4D /* YoudaoResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoudaoResponseDTO.swift; sourceTree = "<group>"; };
 		49769F5C2C0B0B9E00AA8A4D /* PasteboardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardButton.swift; sourceTree = "<group>"; };
 		497A09672C114EB30051C0E0 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
+		49ADFA6B2CB16ADD007EA3D4 /* TanshuAPIType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanshuAPIType.swift; sourceTree = "<group>"; };
+		49C93CC22CB5671B00143FFB /* XunfeiAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XunfeiAPI.swift; sourceTree = "<group>"; };
+		49C93CC42CB5876400143FFB /* SettingKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingKeys.swift; sourceTree = "<group>"; };
+		49C93CC62CB58CFA00143FFB /* XunfeiAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XunfeiAPIResponse.swift; sourceTree = "<group>"; };
+		49C93CC82CB58D2600143FFB /* XunfeiTranslateResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XunfeiTranslateResult.swift; sourceTree = "<group>"; };
 		49FDC5AC2C076CCF003793F1 /* YoudaoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoudaoAPI.swift; sourceTree = "<group>"; };
 		49FDC5AE2C08020B003793F1 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		49FDC5AF2C08020B003793F1 /* 2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 2.gif; sourceTree = "<group>"; };
@@ -84,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49ADFA6F2CB17199007EA3D4 /* SwiftLogMacro in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,13 +194,14 @@
 		49250D8A2C05F84F0026C681 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				49250D8B2C05F85E0026C681 /* TanshuResponseDTO.swift */,
-				49250D8D2C06059F0026C681 /* TanshuAPI.swift */,
+				49C93CC12CB5671000143FFB /* Xunfei */,
+				49ADFA6A2CB16A16007EA3D4 /* Tanshu */,
 				49769F5A2C09BAB100AA8A4D /* YoudaoResponseDTO.swift */,
 				49FDC5AC2C076CCF003793F1 /* YoudaoAPI.swift */,
 				49FDC5B62C080FCF003793F1 /* APIType.swift */,
 				49769F562C09B6DD00AA8A4D /* Errors.swift */,
 				497A09672C114EB30051C0E0 /* Language.swift */,
+				49C93CC42CB5876400143FFB /* SettingKeys.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -200,6 +213,26 @@
 				49FDC5AF2C08020B003793F1 /* 2.gif */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		49ADFA6A2CB16A16007EA3D4 /* Tanshu */ = {
+			isa = PBXGroup;
+			children = (
+				49250D8B2C05F85E0026C681 /* TanshuResponseDTO.swift */,
+				49250D8D2C06059F0026C681 /* TanshuAPI.swift */,
+				49ADFA6B2CB16ADD007EA3D4 /* TanshuAPIType.swift */,
+			);
+			path = Tanshu;
+			sourceTree = "<group>";
+		};
+		49C93CC12CB5671000143FFB /* Xunfei */ = {
+			isa = PBXGroup;
+			children = (
+				49C93CC22CB5671B00143FFB /* XunfeiAPI.swift */,
+				49C93CC62CB58CFA00143FFB /* XunfeiAPIResponse.swift */,
+				49C93CC82CB58D2600143FFB /* XunfeiTranslateResult.swift */,
+			);
+			path = Xunfei;
 			sourceTree = "<group>";
 		};
 		49FDC5B02C080463003793F1 /* Component */ = {
@@ -233,6 +266,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				49ADFA732CB171C8007EA3D4 /* PBXTargetDependency */,
 			);
 			name = MarginNoteTranslatePlugin;
 			productName = MarginNoteTranslatePlugin;
@@ -307,6 +341,9 @@
 				Base,
 			);
 			mainGroup = 49250D4E2C05C41F0026C681;
+			packageReferences = (
+				49ADFA6D2CB17199007EA3D4 /* XCRemoteSwiftPackageReference "SwiftLogMacro" */,
+			);
 			productRefGroup = 49250D582C05C41F0026C681 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -352,18 +389,23 @@
 				49250D882C05E82A0026C681 /* SettingView.swift in Sources */,
 				49769F5D2C0B0B9E00AA8A4D /* PasteboardButton.swift in Sources */,
 				49250D5D2C05C41F0026C681 /* ContentView.swift in Sources */,
+				49ADFA6C2CB16ADD007EA3D4 /* TanshuAPIType.swift in Sources */,
 				49250D922C06D66A0026C681 /* WindowContext.swift in Sources */,
+				49C93CC32CB5671B00143FFB /* XunfeiAPI.swift in Sources */,
 				49250D8E2C06059F0026C681 /* TanshuAPI.swift in Sources */,
 				49FDC5B22C0804DB003793F1 /* DisplayableSecureField.swift in Sources */,
 				49250D942C06DA8D0026C681 /* IdentifiableView.swift in Sources */,
 				49250D902C0609870026C681 /* MenuBarView.swift in Sources */,
 				49769F572C09B6DD00AA8A4D /* Errors.swift in Sources */,
+				49C93CC92CB58D2600143FFB /* XunfeiTranslateResult.swift in Sources */,
 				49FDC5B52C080E20003793F1 /* ContentViewModel.swift in Sources */,
 				49250D8C2C05F85E0026C681 /* TanshuResponseDTO.swift in Sources */,
 				49FDC5AD2C076CCF003793F1 /* YoudaoAPI.swift in Sources */,
 				49FDC5B72C080FCF003793F1 /* APIType.swift in Sources */,
+				49C93CC52CB5876400143FFB /* SettingKeys.swift in Sources */,
 				497A09682C114EB30051C0E0 /* Language.swift in Sources */,
 				49250D5B2C05C41F0026C681 /* MarginNoteTranslatePluginApp.swift in Sources */,
+				49C93CC72CB58CFA00143FFB /* XunfeiAPIResponse.swift in Sources */,
 				49769F5B2C09BAB100AA8A4D /* YoudaoResponseDTO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -397,6 +439,10 @@
 			isa = PBXTargetDependency;
 			target = 49250D562C05C41F0026C681 /* MarginNoteTranslatePlugin */;
 			targetProxy = 49250D732C05C4200026C681 /* PBXContainerItemProxy */;
+		};
+		49ADFA732CB171C8007EA3D4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 49ADFA722CB171C8007EA3D4 /* SwiftLogMacro */;
 		};
 /* End PBXTargetDependency section */
 
@@ -701,6 +747,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		49ADFA6D2CB17199007EA3D4 /* XCRemoteSwiftPackageReference "SwiftLogMacro" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/wttch96/SwiftLogMacro";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		49ADFA6E2CB17199007EA3D4 /* SwiftLogMacro */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 49ADFA6D2CB17199007EA3D4 /* XCRemoteSwiftPackageReference "SwiftLogMacro" */;
+			productName = SwiftLogMacro;
+		};
+		49ADFA722CB171C8007EA3D4 /* SwiftLogMacro */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 49ADFA6D2CB17199007EA3D4 /* XCRemoteSwiftPackageReference "SwiftLogMacro" */;
+			productName = SwiftLogMacro;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 49250D4F2C05C41F0026C681 /* Project object */;
 }
