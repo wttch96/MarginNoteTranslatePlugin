@@ -1,0 +1,1 @@
+zip WttchTranslate.mnaddon main.js mnaddon.json fanyi.png
