@@ -15,8 +15,8 @@ struct MarginNoteTranslatePluginApp: App {
     var body: some Scene {
         Window("MarginNote插件", id: "WttchMarginNotePlugin", content: {
             ContentView()
-                .navigationTitle("")
         })
+        .windowStyle(.hiddenTitleBar)
 
         Window("设置", id: "SettingWindow") {
             SettingView()
@@ -33,15 +33,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         WindowContext.shared.mainWindow { window in
-            // window.isOpaque = true
-            window.backgroundColor = .darkGray
-            // window.hasShadow = false
-            // window.level = .floating
-            // window.isMovableByWindowBackground = true
-            // window.styleMask = [.borderless]
-            // window.titleVisibility = .hidden
-            window.title = ""
-            window.titlebarAppearsTransparent = true
+//            // window.isOpaque = true
+//            window.backgroundColor = .darkGray
+//            // window.hasShadow = false
+//            // window.level = .floating
+//            // window.isMovableByWindowBackground = true
+//            // window.styleMask = [.borderless]
+//            // window.titleVisibility = .hidden
+//            window.title = ""
+//            window.titlebarAppearsTransparent = true
         }
         // 创建状态栏项目
         statusBarItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)

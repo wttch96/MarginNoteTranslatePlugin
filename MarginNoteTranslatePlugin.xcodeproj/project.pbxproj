@@ -20,6 +20,8 @@
 		49250D902C0609870026C681 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D8F2C0609870026C681 /* MenuBarView.swift */; };
 		49250D922C06D66A0026C681 /* WindowContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D912C06D66A0026C681 /* WindowContext.swift */; };
 		49250D942C06DA8D0026C681 /* IdentifiableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D932C06DA8D0026C681 /* IdentifiableView.swift */; };
+		493E0AC12CBE3F72005FE78F /* VisualEffectBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E0AC02CBE3F72005FE78F /* VisualEffectBlur.swift */; };
+		493E0AC32CBFA820005FE78F /* ClipModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E0AC22CBFA820005FE78F /* ClipModifier.swift */; };
 		49769F572C09B6DD00AA8A4D /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49769F562C09B6DD00AA8A4D /* Errors.swift */; };
 		49769F5B2C09BAB100AA8A4D /* YoudaoResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49769F5A2C09BAB100AA8A4D /* YoudaoResponseDTO.swift */; };
 		49769F5D2C0B0B9E00AA8A4D /* PasteboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49769F5C2C0B0B9E00AA8A4D /* PasteboardButton.swift */; };
@@ -73,6 +75,8 @@
 		49250D8F2C0609870026C681 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
 		49250D912C06D66A0026C681 /* WindowContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowContext.swift; sourceTree = "<group>"; };
 		49250D932C06DA8D0026C681 /* IdentifiableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableView.swift; sourceTree = "<group>"; };
+		493E0AC02CBE3F72005FE78F /* VisualEffectBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectBlur.swift; sourceTree = "<group>"; };
+		493E0AC22CBFA820005FE78F /* ClipModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipModifier.swift; sourceTree = "<group>"; };
 		49769F562C09B6DD00AA8A4D /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		49769F5A2C09BAB100AA8A4D /* YoudaoResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoudaoResponseDTO.swift; sourceTree = "<group>"; };
 		49769F5C2C0B0B9E00AA8A4D /* PasteboardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardButton.swift; sourceTree = "<group>"; };
@@ -194,10 +198,9 @@
 		49250D8A2C05F84F0026C681 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				49C93CCA2CB7AD4E00143FFB /* Youdao */,
 				49C93CC12CB5671000143FFB /* Xunfei */,
 				49ADFA6A2CB16A16007EA3D4 /* Tanshu */,
-				49769F5A2C09BAB100AA8A4D /* YoudaoResponseDTO.swift */,
-				49FDC5AC2C076CCF003793F1 /* YoudaoAPI.swift */,
 				49FDC5B62C080FCF003793F1 /* APIType.swift */,
 				49769F562C09B6DD00AA8A4D /* Errors.swift */,
 				497A09672C114EB30051C0E0 /* Language.swift */,
@@ -235,11 +238,22 @@
 			path = Xunfei;
 			sourceTree = "<group>";
 		};
+		49C93CCA2CB7AD4E00143FFB /* Youdao */ = {
+			isa = PBXGroup;
+			children = (
+				49769F5A2C09BAB100AA8A4D /* YoudaoResponseDTO.swift */,
+				49FDC5AC2C076CCF003793F1 /* YoudaoAPI.swift */,
+			);
+			path = Youdao;
+			sourceTree = "<group>";
+		};
 		49FDC5B02C080463003793F1 /* Component */ = {
 			isa = PBXGroup;
 			children = (
 				49FDC5B12C0804DB003793F1 /* DisplayableSecureField.swift */,
 				49769F5C2C0B0B9E00AA8A4D /* PasteboardButton.swift */,
+				493E0AC02CBE3F72005FE78F /* VisualEffectBlur.swift */,
+				493E0AC22CBFA820005FE78F /* ClipModifier.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -399,7 +413,9 @@
 				49769F572C09B6DD00AA8A4D /* Errors.swift in Sources */,
 				49C93CC92CB58D2600143FFB /* XunfeiTranslateResult.swift in Sources */,
 				49FDC5B52C080E20003793F1 /* ContentViewModel.swift in Sources */,
+				493E0AC12CBE3F72005FE78F /* VisualEffectBlur.swift in Sources */,
 				49250D8C2C05F85E0026C681 /* TanshuResponseDTO.swift in Sources */,
+				493E0AC32CBFA820005FE78F /* ClipModifier.swift in Sources */,
 				49FDC5AD2C076CCF003793F1 /* YoudaoAPI.swift in Sources */,
 				49FDC5B72C080FCF003793F1 /* APIType.swift in Sources */,
 				49C93CC52CB5876400143FFB /* SettingKeys.swift in Sources */,
@@ -584,12 +600,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MarginNoteTranslatePlugin/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_LSUIElement = NO;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wttch.MarginNoteTranslatePlugin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -616,12 +633,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MarginNoteTranslatePlugin/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_LSUIElement = NO;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wttch.MarginNoteTranslatePlugin;
 				PRODUCT_NAME = "$(TARGET_NAME)";

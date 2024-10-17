@@ -11,9 +11,14 @@ import SwiftUI
 enum SettingKeys: String {
     case tanshuAPIKey = "Tanshu-APIKey"
     
+    case youdaoAppID = "youdao-app-id"
+    case youdaoAppKey = "youdao-app-key"
+    
     case xunfeiAppID = "Xunfei-AppID"
     case xunfeiAppSecret = "Xunfei-AppSecret"
     case xunfeiAppKey = "Xunfei-AppKey"
+    
+    case apiType = "APIType"
 }
 
 

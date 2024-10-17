@@ -14,8 +14,8 @@ import SwiftUI
 struct SettingView: View {
     @AppStorage(.tanshuAPIKey) private var key: String = ""
     // 有道翻译
-    @AppStorage(YoudaoAPI.appIdKey) var youdaoAppId: String = ""
-    @AppStorage(YoudaoAPI.appKeyKey) var youdaoAppKey: String = ""
+    @AppStorage(.youdaoAppID) var youdaoAppId: String = ""
+    @AppStorage(.youdaoAppKey) var youdaoAppKey: String = ""
     // 讯飞翻译
     @AppStorage(.xunfeiAppID) private var xunfeiAppID: String = ""
     @AppStorage(.xunfeiAppSecret) private var xunfeiAppSecret: String = ""

@@ -23,120 +23,87 @@ struct ContentView: View {
     @Environment(\.openWindow) var openWindow
     
     @StateObject private var vm = ContentViewModel()
-    
-    @State private var showHistory = false
+    @State private var showNavigation = NavigationSplitViewVisibility.all
     @AppStorage("float") private var float = false
+    @Namespace private var namespace
     
     var body: some View {
-        HStack {
-            if showHistory {
-                historyView
-            }
-            
-            VStack(alignment: .leading) {
-                VStack {
-                    HStack(spacing: 0) {
-//                        Menu(vm.from.name, content: {
-//                            ForEach(Language.allCases, id: \.self) { lang in
-//                                Button(action: {
-//                                    self.vm.from = lang
-//                                }, label: {
-//                                    Text(lang.name)
-//                                })
-//                            }
-//                        })
-//                        .menuStyle(BorderlessButtonMenuStyle())
-//                        .font(.footnote)
-//                        .frame(width: 40)
-                        Spacer()
-                        
-                        if vm.concise {
-                            conciseToggle
+        NavigationSplitView(columnVisibility: $showNavigation) {
+            historyView
+                .toolbar(removing: .sidebarToggle)
+                .toolbar {
+                    if showNavigation != .detailOnly {
+                        ToolbarItem(placement: .principal) {
+                            navigationToggle
                         }
                     }
-                    TextEditor(text: $vm.keywords)
+                }
+        } detail: {
+            VStack(alignment: .leading) {
+                HStack(spacing: 0) {
+                    Spacer()
+                        
+                    if vm.concise {
+                        conciseToggle
+                            .font(.footnote)
+                    }
+                }
+                TextEditor(text: $vm.keywords)
+                    .bold()
+                    .font(.subheadline)
+                    .padding(4)
+                    .background {
+                        RoundedRectangle(cornerRadius: 4)
+                            .fill(.primary.opacity(0.2))
+                    }
+                    .onSubmit {
+                        vm.translate()
+                    }
+
+                ZStack {
+                    TextEditor(text: $vm.translateResult)
                         .bold()
                         .font(.subheadline)
-                    
-                    if !vm.concise {
-                        ZStack {
-                            Rectangle()
-                                .fill(.gray)
-                                .frame(height: 1)
-                            
-                            Image(systemName: "arrow.triangle.swap")
-                                .foregroundColor(.accentColor)
-                                .padding(6)
-                                .scaleEffect(y: -1)
-                                .background {
-                                    Circle()
-                                        .fill(.gray)
-                                }
-                                .onTapGesture {
-                                    vm.translate()
-                                }
+                        .foregroundColor(.accentColor)
+                        .padding(4)
+                        .background {
+                            RoundedRectangle(cornerRadius: 4)
+                                .fill(.secondary.opacity(0.2))
                         }
-                    }
-                    ZStack {
-                        TextEditor(text: $vm.translateResult)
-                            .bold()
-                            .font(.subheadline)
-                            .foregroundColor(.accentColor)
+                        .disabled(true)
                         
-                        VStack {
-                            Spacer()
+                    VStack {
+                        Spacer()
                             
-                            HStack {
-                                if !vm.translateResult.isEmpty {
-                                    PasteboardButton(text: vm.translateResult)
-                                }
-                                Spacer()
+                        HStack {
+                            if !vm.translateResult.isEmpty {
+                                PasteboardButton(text: vm.translateResult)
+                            }
+                            Spacer()
                                 
-                                if let error = vm.error {
-                                    Text(error)
-                                        .font(.caption)
-                                        .foregroundColor(.red)
-                                }
+                            if let error = vm.error {
+                                Text(error)
+                                    .font(.caption)
+                                    .foregroundColor(.red)
                             }
                         }
                     }
                 }
-                .padding(8)
-                .background(.ultraThinMaterial)
+                .padding(.top, 8)
             }
+            .padding(8)
+            .background(.thinMaterial)
             .textEditorStyle(.plain)
+            .frame(maxWidth: 680)
         }
+        .clip(vm.concise)
         .onOpenURL(perform: onOpenURL)
-        .clipShape(vm.concise ? AnyShape(RoundedRectangle(cornerRadius: 8)) : AnyShape(Rectangle()))
-        .toolbar(content: { toolbars })
         .onAppear {
             self.onConciseChange(false, self.vm.concise)
         }
         .onChange(of: vm.concise, onConciseChange(_:_:))
+        .toolbar(content: { toolbars })
     }
-}
-
-// 获取指定应用程序的窗口列表
-func getWindowsOfApplication(_ app: NSRunningApplication) -> [AXUIElement] {
-    let appElement = AXUIElementCreateApplication(app.processIdentifier)
-    var windowList: CFTypeRef?
-    let result = AXUIElementCopyAttributeValue(appElement, kAXWindowsAttribute as CFString, &windowList)
-    
-    if result == .success, let windows = windowList as? [AXUIElement] {
-        return windows
-    }
-    return []
-}
-
-// 获取窗口的标题
-func getWindowTitle(_ window: AXUIElement) -> String? {
-    var title: AnyObject?
-    let result = AXUIElementCopyAttributeValue(window, kAXTitleAttribute as CFString, &title)
-    
-    if result == .success {
-        return title as? String
-    }
-    return nil
 }
 
 // MARK: 行为
@@ -156,20 +123,22 @@ extension ContentView {
     }
     
     /// 精简模式切换
-    private func onConciseChange(_ _: Bool, _ concise: Bool) {
+    private func onConciseChange(_ _: Bool, _: Bool) {
         guard let window = NSApplication.shared.windows.first else { return }
-        if concise {
+        if vm.concise {
             // 简洁模式
             window.styleMask = [.borderless, .resizable]
             window.backgroundColor = .clear
             window.hasShadow = false
+            // showNavigation = (showNavigation == .all) ? .detailOnly : showNavigation
         } else {
             // 正常模式
-            window.styleMask = [.titled, .closable, .miniaturizable, .resizable]
-            window.backgroundColor = .gray
+            window.styleMask = [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView]
+            window.backgroundColor = NSColor.windowBackgroundColor
             window.hasShadow = true
         }
-        window.isMovableByWindowBackground = float
+        window.toolbarStyle = .unifiedCompact
+        window.isMovableByWindowBackground = vm.concise
         window.level = float ? .floating : .normal
     }
 }
@@ -219,6 +188,22 @@ extension ContentView {
         .frame(width: 160)
     }
     
+    @ViewBuilder
+    private var navigationToggle: some View {
+        Button(action: {
+            withAnimation {
+                if showNavigation == .all {
+                    showNavigation = .detailOnly
+                } else if showNavigation == .detailOnly {
+                    showNavigation = .all
+                }
+            }
+        }) {
+            Image(systemName: "sidebar.leading")
+        }
+        .matchedGeometryEffect(id: "sidebarToggle", in: namespace)
+    }
+    
     // 使用的 API 的选择器
     @ViewBuilder
     private var apiPicker: some View {
@@ -242,22 +227,7 @@ extension ContentView {
         }
         .frame(width: 72)
     }
-    
-    
-    // 显示历史记录的 Button
-    @ViewBuilder
-    private var historyButton: some View {
-        Button(action: {
-            withAnimation(.spring) {
-                showHistory.toggle()
-            }
-        }, label: {
-            Image(systemName: "sidebar.left")
-                .font(.title3)
-                .offset(y: 1.5)
-        })
-    }
-    
+
     // 简洁模式
     @ViewBuilder
     private var conciseToggle: some View {
@@ -288,7 +258,7 @@ extension ContentView {
             .animation(.spring, value: float)
             .onTapGesture {
                 float.toggle()
-                if let window = NSApplication.shared.windows.first(where: { $0.title == "" }) {
+                if let window = NSApplication.shared.windows.first {
                     window.level = float ? .floating : .normal
                 }
             }
@@ -305,11 +275,10 @@ extension ContentView {
     @ToolbarContentBuilder
     private var toolbars: some ToolbarContent {
         if !vm.concise {
-            ToolbarItem(placement: .navigation, content: {
-                historyButton
-            })
-            ToolbarItem(placement: .navigation) {
-                settingButton
+            if showNavigation == .detailOnly {
+                ToolbarItem(placement: .navigation) {
+                    navigationToggle
+                }
             }
             ToolbarItem(placement: .navigation) {
                 apiPicker

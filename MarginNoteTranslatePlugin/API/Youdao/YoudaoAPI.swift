@@ -5,16 +5,12 @@
 //  Created by Wttch on 2024/5/29.
 //
 
-import Foundation
-import CryptoKit
 import Combine
-
+import CryptoKit
+import Foundation
 
 /// 有道翻译 API
 class YoudaoAPI {
-    public static let appIdKey = "youdao-app-id"
-    public static let appKeyKey = "youdao-app-key"
-    
     public static let shared = YoudaoAPI()
     
     private init() {}
@@ -35,10 +31,17 @@ class YoudaoAPI {
             return q
         }
     }
-    
+        
+    func asyncTranslate(_ keywords: String, appID: String, appKey: String) async throws -> String {
+        
+        
+        return ""
+    }
+        
     func translate(_ text: String) -> AnyPublisher<YoudaoResponseDTO, ApiError> {
-        guard let appId = UserDefaults.standard.value(forKey: YoudaoAPI.appIdKey),
-              let appKey = UserDefaults.standard.value(forKey: YoudaoAPI.appKeyKey) else {
+        guard let appId = UserDefaults.standard.string(forKey: .youdaoAppID),
+              let appKey = UserDefaults.standard.string(forKey: .youdaoAppKey)
+        else {
             return Fail(outputType: YoudaoResponseDTO.self, failure: ApiError.keyNotFound(.youdao))
                 .eraseToAnyPublisher()
         }
@@ -46,7 +49,6 @@ class YoudaoAPI {
         let url = URL(string: "https://openapi.youdao.com/api")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        
         
         let curtime = Int(Date().timeIntervalSince1970)
         let salt = UUID().uuidString
@@ -67,47 +69,36 @@ class YoudaoAPI {
         
         return URLSession.shared.dataTaskPublisher(for: request)
             .subscribe(on: DispatchQueue.global(qos: .background))
-            .map({
+            .map {
                 $0.data
-            })
+            }
             .decode(type: YoudaoResponseDTO.self, decoder: JSONDecoder())
-            .tryMap({ resp in
+            .tryMap { resp in
                 if resp.errorCode == "0" {
                     return resp
                 }
                 
                 throw ApiError.serviceError(.youdao, resp.errorCode)
-            })
+            }
             .receive(on: DispatchQueue.main)
-            .mapError({
+            .mapError {
                 $0 is ApiError ? $0 as! ApiError : ApiError.unknown(.youdao, $0)
-            })
+            }
             .eraseToAnyPublisher()
-        
     }
 }
 
-fileprivate extension Dictionary {
+private extension Dictionary where Key == String, Value == String {
     func percentEncoded() -> Data? {
         return map { key, value in
-            let escapedKey = "\(key)"
-            let escapedValue = "\(value)"
-            return escapedKey + "=" + escapedValue
+            return key + "=" + value
         }
         .joined(separator: "&")
         .data(using: .utf8)
     }
 }
 
-fileprivate extension CharacterSet {
-    static let urlQueryValueAllowed: CharacterSet = {
-        var characterSet = CharacterSet.urlQueryAllowed
-        characterSet.remove(charactersIn: "&=?")
-        return characterSet
-    }()
-}
-
-fileprivate extension String {
+private extension String {
     var sha256: String {
         let digest = SHA256.hash(data: data(using: .utf8) ?? Data())
 
@@ -116,4 +107,3 @@ fileprivate extension String {
         }.joined()
     }
 }
-
