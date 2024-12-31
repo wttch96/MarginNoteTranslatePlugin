@@ -14,7 +14,7 @@ struct ClipModifier: ViewModifier {
     func body(content: Content) -> some View {
         if clip {
             content
-                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
         } else {
             content
         }

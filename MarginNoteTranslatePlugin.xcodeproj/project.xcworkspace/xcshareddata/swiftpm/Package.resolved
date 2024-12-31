@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/wttch96/SwiftLogMacro",
       "state" : {
-        "branch" : "main",
-        "revision" : "49032fec722ac3aa2bd319da8f78aee351a593ff"
+        "revision" : "49032fec722ac3aa2bd319da8f78aee351a593ff",
+        "version" : "0.0.1"
       }
     }
   ],

@@ -22,12 +22,14 @@
 		49250D942C06DA8D0026C681 /* IdentifiableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D932C06DA8D0026C681 /* IdentifiableView.swift */; };
 		493E0AC12CBE3F72005FE78F /* VisualEffectBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E0AC02CBE3F72005FE78F /* VisualEffectBlur.swift */; };
 		493E0AC32CBFA820005FE78F /* ClipModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E0AC22CBFA820005FE78F /* ClipModifier.swift */; };
+		49695D6A2D23C52900649434 /* SwiftLogMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 49695D692D23C52900649434 /* SwiftLogMacro */; };
+		49695D6D2D23CDD300649434 /* URLSchemeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49695D6C2D23CDD300649434 /* URLSchemeEntity.swift */; };
+		49695D702D23D18100649434 /* URLSchemeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49695D6F2D23D18100649434 /* URLSchemeParser.swift */; };
 		49769F572C09B6DD00AA8A4D /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49769F562C09B6DD00AA8A4D /* Errors.swift */; };
 		49769F5B2C09BAB100AA8A4D /* YoudaoResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49769F5A2C09BAB100AA8A4D /* YoudaoResponseDTO.swift */; };
 		49769F5D2C0B0B9E00AA8A4D /* PasteboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49769F5C2C0B0B9E00AA8A4D /* PasteboardButton.swift */; };
 		497A09682C114EB30051C0E0 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497A09672C114EB30051C0E0 /* Language.swift */; };
 		49ADFA6C2CB16ADD007EA3D4 /* TanshuAPIType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ADFA6B2CB16ADD007EA3D4 /* TanshuAPIType.swift */; };
-		49ADFA6F2CB17199007EA3D4 /* SwiftLogMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 49ADFA6E2CB17199007EA3D4 /* SwiftLogMacro */; };
 		49C93CC32CB5671B00143FFB /* XunfeiAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C93CC22CB5671B00143FFB /* XunfeiAPI.swift */; };
 		49C93CC52CB5876400143FFB /* SettingKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C93CC42CB5876400143FFB /* SettingKeys.swift */; };
 		49C93CC72CB58CFA00143FFB /* XunfeiAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C93CC62CB58CFA00143FFB /* XunfeiAPIResponse.swift */; };
@@ -77,6 +79,8 @@
 		49250D932C06DA8D0026C681 /* IdentifiableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableView.swift; sourceTree = "<group>"; };
 		493E0AC02CBE3F72005FE78F /* VisualEffectBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectBlur.swift; sourceTree = "<group>"; };
 		493E0AC22CBFA820005FE78F /* ClipModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipModifier.swift; sourceTree = "<group>"; };
+		49695D6C2D23CDD300649434 /* URLSchemeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSchemeEntity.swift; sourceTree = "<group>"; };
+		49695D6F2D23D18100649434 /* URLSchemeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSchemeParser.swift; sourceTree = "<group>"; };
 		49769F562C09B6DD00AA8A4D /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		49769F5A2C09BAB100AA8A4D /* YoudaoResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoudaoResponseDTO.swift; sourceTree = "<group>"; };
 		49769F5C2C0B0B9E00AA8A4D /* PasteboardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardButton.swift; sourceTree = "<group>"; };
@@ -99,7 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49ADFA6F2CB17199007EA3D4 /* SwiftLogMacro in Frameworks */,
+				49695D6A2D23C52900649434 /* SwiftLogMacro in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,6 +149,7 @@
 		49250D592C05C41F0026C681 /* MarginNoteTranslatePlugin */ = {
 			isa = PBXGroup;
 			children = (
+				49695D6B2D23CDBB00649434 /* URLScheme */,
 				49250D8A2C05F84F0026C681 /* API */,
 				49250D892C05E82E0026C681 /* View */,
 				49250D852C05C42C0026C681 /* Info.plist */,
@@ -218,6 +223,15 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		49695D6B2D23CDBB00649434 /* URLScheme */ = {
+			isa = PBXGroup;
+			children = (
+				49695D6C2D23CDD300649434 /* URLSchemeEntity.swift */,
+				49695D6F2D23D18100649434 /* URLSchemeParser.swift */,
+			);
+			path = URLScheme;
+			sourceTree = "<group>";
+		};
 		49ADFA6A2CB16A16007EA3D4 /* Tanshu */ = {
 			isa = PBXGroup;
 			children = (
@@ -280,7 +294,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				49ADFA732CB171C8007EA3D4 /* PBXTargetDependency */,
 			);
 			name = MarginNoteTranslatePlugin;
 			productName = MarginNoteTranslatePlugin;
@@ -356,7 +369,7 @@
 			);
 			mainGroup = 49250D4E2C05C41F0026C681;
 			packageReferences = (
-				49ADFA6D2CB17199007EA3D4 /* XCRemoteSwiftPackageReference "SwiftLogMacro" */,
+				49695D682D23C52900649434 /* XCRemoteSwiftPackageReference "SwiftLogMacro" */,
 			);
 			productRefGroup = 49250D582C05C41F0026C681 /* Products */;
 			projectDirPath = "";
@@ -411,6 +424,7 @@
 				49250D942C06DA8D0026C681 /* IdentifiableView.swift in Sources */,
 				49250D902C0609870026C681 /* MenuBarView.swift in Sources */,
 				49769F572C09B6DD00AA8A4D /* Errors.swift in Sources */,
+				49695D702D23D18100649434 /* URLSchemeParser.swift in Sources */,
 				49C93CC92CB58D2600143FFB /* XunfeiTranslateResult.swift in Sources */,
 				49FDC5B52C080E20003793F1 /* ContentViewModel.swift in Sources */,
 				493E0AC12CBE3F72005FE78F /* VisualEffectBlur.swift in Sources */,
@@ -421,6 +435,7 @@
 				49C93CC52CB5876400143FFB /* SettingKeys.swift in Sources */,
 				497A09682C114EB30051C0E0 /* Language.swift in Sources */,
 				49250D5B2C05C41F0026C681 /* MarginNoteTranslatePluginApp.swift in Sources */,
+				49695D6D2D23CDD300649434 /* URLSchemeEntity.swift in Sources */,
 				49C93CC72CB58CFA00143FFB /* XunfeiAPIResponse.swift in Sources */,
 				49769F5B2C09BAB100AA8A4D /* YoudaoResponseDTO.swift in Sources */,
 			);
@@ -455,10 +470,6 @@
 			isa = PBXTargetDependency;
 			target = 49250D562C05C41F0026C681 /* MarginNoteTranslatePlugin */;
 			targetProxy = 49250D732C05C4200026C681 /* PBXContainerItemProxy */;
-		};
-		49ADFA732CB171C8007EA3D4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = 49ADFA722CB171C8007EA3D4 /* SwiftLogMacro */;
 		};
 /* End PBXTargetDependency section */
 
@@ -600,7 +611,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MarginNoteTranslatePlugin/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_LSUIElement = NO;
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -633,7 +644,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MarginNoteTranslatePlugin/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_LSUIElement = NO;
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -767,25 +778,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		49ADFA6D2CB17199007EA3D4 /* XCRemoteSwiftPackageReference "SwiftLogMacro" */ = {
+		49695D682D23C52900649434 /* XCRemoteSwiftPackageReference "SwiftLogMacro" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/wttch96/SwiftLogMacro";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		49ADFA6E2CB17199007EA3D4 /* SwiftLogMacro */ = {
+		49695D692D23C52900649434 /* SwiftLogMacro */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 49ADFA6D2CB17199007EA3D4 /* XCRemoteSwiftPackageReference "SwiftLogMacro" */;
-			productName = SwiftLogMacro;
-		};
-		49ADFA722CB171C8007EA3D4 /* SwiftLogMacro */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 49ADFA6D2CB17199007EA3D4 /* XCRemoteSwiftPackageReference "SwiftLogMacro" */;
+			package = 49695D682D23C52900649434 /* XCRemoteSwiftPackageReference "SwiftLogMacro" */;
 			productName = SwiftLogMacro;
 		};
 /* End XCSwiftPackageProductDependency section */

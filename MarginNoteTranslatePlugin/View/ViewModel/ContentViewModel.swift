@@ -36,8 +36,6 @@ class ContentViewModel: ObservableObject {
     // 简洁模式
     @Published var concise: Bool = false
     
-    @Published var histories: [History] = []
-    
     private func handleError(error: (any Error)?) {
         guard let error = error as? ApiError else { return }
         
@@ -65,7 +63,6 @@ class ContentViewModel: ObservableObject {
             do {
                 let result = try await TanshuAPI.shared.translate(self.keywords, apiKey: apiKey, type: self.tanshuType)
                 self.translateResult = result
-                self.histories.append(History(api: .tanshu, text: self.keywords, result: self.translateResult))
             } catch {
                 self.handleError(error: error)
             }
@@ -87,7 +84,6 @@ class ContentViewModel: ObservableObject {
             do {
                 let result = try await XunfeiAPI.shared.translate(keywords, secret: XunfeiAPISecret(appID: appID, secret: apiSecret, key: apiKey), from: self.from, to: self.to)
                 self.translateResult = result
-                self.histories.append(History(api: .xunfei, text: self.keywords, result: self.translateResult))
             } catch {
                self.handleError(error: error)
             }
@@ -137,7 +133,6 @@ class ContentViewModel: ObservableObject {
                     self.transalting = false
                 }, receiveValue: { data in
                     self.translateResult = data.translation?.first ?? "<None>"
-                    self.histories.append(History(api: .youdao, text: self.keywords, result: self.translateResult))
                 })
 
             return

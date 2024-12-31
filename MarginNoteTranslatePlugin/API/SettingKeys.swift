@@ -17,13 +17,22 @@ enum SettingKeys: String {
     case xunfeiAppID = "Xunfei-AppID"
     case xunfeiAppSecret = "Xunfei-AppSecret"
     case xunfeiAppKey = "Xunfei-AppKey"
-    
-    case apiType = "APIType"
+    
+    case apiType = "API-Type"
+    case tanshuType = "Tanshu-Type"
 }
 
 
 extension AppStorage {
     init(wrappedValue: Value, _ key: SettingKeys, store: UserDefaults? = nil) where Value == String {
+        self.init(wrappedValue: wrappedValue, key.rawValue, store: store)
+    }
+    
+    init(wrappedValue: Value, _ key: SettingKeys, store: UserDefaults? = nil) where Value == APIType {
+        self.init(wrappedValue: wrappedValue, key.rawValue, store: store)
+    }
+    
+    init(wrappedValue: Value, _ key: SettingKeys, store: UserDefaults? = nil) where Value == TanshuAPIType {
         self.init(wrappedValue: wrappedValue, key.rawValue, store: store)
     }
 }

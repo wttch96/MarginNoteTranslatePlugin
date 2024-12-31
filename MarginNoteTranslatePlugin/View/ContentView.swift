@@ -11,55 +11,47 @@ import Combine
 import SwiftLogMacro
 import SwiftUI
 
-struct History: Identifiable {
-    let id: String = UUID().uuidString
-    let api: APIType
-    let text: String
-    let result: String
-}
-
 @Log("翻译页面", level: .debug)
 struct ContentView: View {
     @Environment(\.openWindow) var openWindow
     
     @StateObject private var vm = ContentViewModel()
-    @State private var showNavigation = NavigationSplitViewVisibility.all
     @AppStorage("float") private var float = false
     @Namespace private var namespace
     
+    @AppStorage(.apiType) private var apiType: APIType = .tanshu
+    @AppStorage(.tanshuType) private var tanshuType: TanshuAPIType = .deepl
+    
+    @State private var layout: Edge.Set = .horizontal
+    @FocusState private var isFocused: Bool
+    
     var body: some View {
-        NavigationSplitView(columnVisibility: $showNavigation) {
-            historyView
-                .toolbar(removing: .sidebarToggle)
-                .toolbar {
-                    if showNavigation != .detailOnly {
-                        ToolbarItem(placement: .principal) {
-                            navigationToggle
-                        }
-                    }
+        VStack(spacing: 0) {
+            HStack(spacing: 0) {
+//                    Button(action: {}, label: {
+//                        Image(systemName: "square.and.line.vertical.and.square")
+//                    })
+//                    .buttonStyle(.accessoryBar)
+//
+                Spacer()
+                if vm.concise {
+                    conciseToggle
+                        .font(.footnote)
                 }
-        } detail: {
-            VStack(alignment: .leading) {
-                HStack(spacing: 0) {
-                    Spacer()
-                        
-                    if vm.concise {
-                        conciseToggle
-                            .font(.footnote)
-                    }
-                }
+            }
+            HStack(spacing: 0) {
                 TextEditor(text: $vm.keywords)
                     .bold()
                     .font(.subheadline)
                     .padding(4)
                     .background {
-                        RoundedRectangle(cornerRadius: 4)
+                        UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(topLeading: 4, bottomLeading: 4))
                             .fill(.primary.opacity(0.2))
                     }
                     .onSubmit {
                         vm.translate()
                     }
-
+                    
                 ZStack {
                     TextEditor(text: $vm.translateResult)
                         .bold()
@@ -67,10 +59,9 @@ struct ContentView: View {
                         .foregroundColor(.accentColor)
                         .padding(4)
                         .background {
-                            RoundedRectangle(cornerRadius: 4)
+                            UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(bottomTrailing: 4, topTrailing: 4))
                                 .fill(.secondary.opacity(0.2))
                         }
-                        .disabled(true)
                         
                     VStack {
                         Spacer()
@@ -89,13 +80,13 @@ struct ContentView: View {
                         }
                     }
                 }
-                .padding(.top, 8)
             }
-            .padding(8)
-            .background(.thinMaterial)
-            .textEditorStyle(.plain)
-            .frame(maxWidth: 680)
         }
+        .padding(8)
+        .background(.thinMaterial)
+        .textEditorStyle(.plain)
+        .frame(maxWidth: 680)
+        .toolbar(removing: .title)
         .clip(vm.concise)
         .onOpenURL(perform: onOpenURL)
         .onAppear {
@@ -112,13 +103,41 @@ extension ContentView {
     /// 监听 URL
     /// - Parameter url: URL 链接, 格式为 `WttchTranslate://keyword/要翻译文本`
     private func onOpenURL(_ url: URL) {
-        if let url = url.absoluteString.removingPercentEncoding {
-            let keywords = url.replacing("WttchTranslate://keyword/", with: "")
-            vm.keywords = keywords
-            logger.debug("收到翻译:\(keywords)")
-            if vm.autoTransaltae {
-                vm.translate()
+        // Step 1: 将当前应用移到后台
+        NSApplication.shared.deactivate()
+
+        // Step 2: 获取当前应用的进程 ID
+        let currentAppPID = NSRunningApplication.current.processIdentifier
+
+        // Step 3: 找到所有运行的应用程序，并排除当前应用
+        let runningApps = NSWorkspace.shared.runningApplications
+
+        // Step 4: 激活上一个应用（选择最近非当前应用且处于活跃的应用）
+        if let previousApp = runningApps.first(where: { app in
+            let appName = app.localizedName ?? ""
+            return appName.contains("MarginNote 4")
+        }) {
+            previousApp.activate(options: [.activateIgnoringOtherApps])
+        }
+        
+        guard let urlSchemeEntity = URLSchemeParser.parse(url: url) else { return }
+        switch urlSchemeEntity.type {
+        case .selection:
+            vm.keywords = urlSchemeEntity.data
+        case .note:
+            guard let data = urlSchemeEntity.data.data(using: .utf8),
+                  let note = try? JSONDecoder().decode(NoteEntity.self, from: data) else { return }
+            
+            if let keywords = note.keywords {
+                vm.keywords = keywords
             }
+            
+        default:
+            break
+        }
+        
+        if vm.autoTransaltae {
+            vm.translate()
         }
     }
     
@@ -137,6 +156,7 @@ extension ContentView {
             window.backgroundColor = NSColor.windowBackgroundColor
             window.hasShadow = true
         }
+        window.layoutIfNeeded()
         window.toolbarStyle = .unifiedCompact
         window.isMovableByWindowBackground = vm.concise
         window.level = float ? .floating : .normal
@@ -146,88 +166,6 @@ extension ContentView {
 // MARK: 子视图
 
 extension ContentView {
-    // 左侧历史记录
-    @ViewBuilder
-    private var historyView: some View {
-        ScrollView {
-            VStack {
-                ForEach(vm.histories.reversed(), id: \.text) { history in
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text(history.api.name)
-                                .font(.system(size: 8))
-                                .padding(2)
-                                .background(content: {
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .fill(history.api.color)
-                                })
-                            Text(history.text)
-                                .lineLimit(1)
-                            Spacer()
-                        }
-                        HStack {
-                            Text(history.result)
-                                .lineLimit(1)
-                            Spacer()
-                        }
-                    }
-                    .padding(4)
-                    .frame(width: 160)
-                    .font(.footnote)
-                    .background {
-                        RoundedRectangle(cornerRadius: 4)
-                            .fill(.white.opacity(0.1))
-                    }
-                    .onTapGesture(perform: {
-                        self.vm.keywords = history.text
-                        self.vm.translateResult = history.result
-                    })
-                }
-            }
-        }
-        .frame(width: 160)
-    }
-    
-    @ViewBuilder
-    private var navigationToggle: some View {
-        Button(action: {
-            withAnimation {
-                if showNavigation == .all {
-                    showNavigation = .detailOnly
-                } else if showNavigation == .detailOnly {
-                    showNavigation = .all
-                }
-            }
-        }) {
-            Image(systemName: "sidebar.leading")
-        }
-        .matchedGeometryEffect(id: "sidebarToggle", in: namespace)
-    }
-    
-    // 使用的 API 的选择器
-    @ViewBuilder
-    private var apiPicker: some View {
-        Picker("", selection: $vm.api, content: {
-            ForEach(APIType.allCases) { api in
-                Text(api.name)
-                    .tag(api)
-            }
-        })
-        .frame(width: 72)
-    }
-    
-    @ViewBuilder
-    // 探数 API 翻译引擎选择
-    private var tanshuTypePicker: some View {
-        Picker("", selection: $vm.tanshuType) {
-            ForEach(TanshuAPIType.allCases, id: \.rawValue) { api in
-                Text(api.rawValue)
-                    .tag(api)
-            }
-        }
-        .frame(width: 72)
-    }
-
     // 简洁模式
     @ViewBuilder
     private var conciseToggle: some View {
@@ -275,20 +213,31 @@ extension ContentView {
     @ToolbarContentBuilder
     private var toolbars: some ToolbarContent {
         if !vm.concise {
-            if showNavigation == .detailOnly {
-                ToolbarItem(placement: .navigation) {
-                    navigationToggle
+//            if showNavigation == .detailOnly {
+//                ToolbarItem(placement: .navigation) {
+//                    navigationToggle
+//                }
+//            }
+            ToolbarItem(placement: .secondaryAction) {
+                HStack(spacing: 0) {
+                    Text(apiType.name)
+                    if apiType == .tanshu {
+                        Text(" | \(tanshuType.rawValue)")
+                    }
+                }
+                .font(.footnote)
+                .foregroundColor(apiType.color)
+                .padding(.vertical, 2)
+                .padding(.horizontal, 4)
+                .background(
+                    RoundedRectangle(cornerRadius: 4)
+                        .stroke(apiType.color, lineWidth: 1)
+                )
+                .onTapGesture {
+                    openWindow(id: "SettingWindow")
                 }
             }
-            ToolbarItem(placement: .navigation) {
-                apiPicker
-            }
-            if vm.api == .tanshu {
-                ToolbarItem(placement: .navigation) {
-                    tanshuTypePicker
-                }
-            }
-            ToolbarItem(placement: .navigation) {
+            ToolbarItem(placement: .secondaryAction) {
                 autoTranslateButton
             }
             ToolbarItem(placement: .cancellationAction, content: {

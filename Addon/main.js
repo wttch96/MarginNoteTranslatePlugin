@@ -1,12 +1,13 @@
 JSB.newAddon = function (mainPath) {
     // 翻译调用的 url 路径
-    const baseUrl = "WttchTranslate://keyword/";
+    const baseUrl = "WttchTranslate://keyword";
     const isOnKey = 'marginnote_wttchtranslate';
-    const showHUD = Application.sharedInstance().showHUD;
     //MARK: - Customized functions
     // 生成翻译URL
-    function generateUrl(keyWords) {
-        return baseUrl + keyWords;
+    function generateUrl(type, data) {
+        let jsonString = JSON.stringify(data);
+        let encodedString = encodeURIComponent(jsonString);
+        return baseUrl + "?type=" + type + "&data=" + encodedString;
     }
 
     // 打开翻译请求的 url
@@ -18,16 +19,19 @@ JSB.newAddon = function (mainPath) {
         });
     }
 
-    // 尝试发送翻译请求
-    function trySendTranslateRequest(text) {
+
+    /**
+     * 发送翻译请求
+     * @param type 翻译类型
+     * @param data 翻译数据, json 格式
+     */
+    function sendTranslateRequest(type, data) {
         try {
-            if (text && text.length) {
-                text = text.replace(/^\s+/, '').replace(/\s+$/, ''); //去除首尾空格
-                let url = generateUrl(text);
-                openUrlWithExternalBrowser(url);
-            }
+            let uriString = generateUrl(type, data);
+            // Application.sharedInstance().showHUD("正在发送翻译请求..." + uriString, self.window, 2);
+            openUrlWithExternalBrowser(uriString);
         } catch (e) {
-            showHUD(e, self.window, 2);
+            Application.sharedInstance().showHUD(e, self.window, 2);
         }
     }
 
@@ -72,7 +76,7 @@ JSB.newAddon = function (mainPath) {
             }
             const text = sender.userInfo.documentController.selectionText;
 
-            trySendTranslateRequest(text)
+            sendTranslateRequest("selection", text);
         },
 
         // 选择笔记翻译
@@ -80,11 +84,12 @@ JSB.newAddon = function (mainPath) {
             if (!Application.sharedInstance().checkNotifySenderInWindow(sender, self.window) || !self.wttchTranslateIsOn) {
                 return;
             }
-            var text = sender.userInfo.note.noteTitle;
-            if (!text) {
-                text = sender.userInfo.note.excerptText;
-            }
-            trySendTranslateRequest(text)
+            let note = sender.userInfo.note;
+            sendTranslateRequest("note", {
+                title: note.noteTitle,
+                comments: note.comments,
+                excerpt: note.excerptText
+            });
         },
 
         // Add-On Switch

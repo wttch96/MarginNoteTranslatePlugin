@@ -8,6 +8,23 @@
 
 MarginNote 使用 [ReResearch](https://bbs.marginnote.com.cn/t/topic/7069/5) 插件通过 url 调用发送给该插件。
 
+因为插件那边 js 不好处理数据，所以就使用 json 格式传输数据，在 swift 边解析。
+
+### 传送的数据格式
+
+```json
+{
+    "type": "",
+    "data": {
+    
+    }
+}
+```
+
+#### type = "node"
+
+#### type = "selection"
+
 ## 2. 翻译
 
 内容捕获后，调用翻译 API 翻译即可。
