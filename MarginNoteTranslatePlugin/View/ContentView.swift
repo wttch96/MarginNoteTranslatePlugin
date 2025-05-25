@@ -230,7 +230,7 @@ extension ContentView {
                 .padding(.vertical, 2)
                 .padding(.horizontal, 4)
                 .background(
-                    RoundedRectangle(cornerRadius: 4)
+                    RoundedRectangle(cornerRadius: 2)
                         .stroke(apiType.color, lineWidth: 1)
                 )
                 .onTapGesture {
