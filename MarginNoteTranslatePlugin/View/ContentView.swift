@@ -49,7 +49,7 @@ struct ContentView: View {
                             .fill(.primary.opacity(0.2))
                     }
                     .onSubmit {
-                        vm.translate()
+                        vm.translate(api: apiType, tanshuType: tanshuType)
                     }
                     
                 ZStack {
@@ -137,7 +137,7 @@ extension ContentView {
         }
         
         if vm.autoTransaltae {
-            vm.translate()
+            vm.translate(api: apiType, tanshuType: tanshuType)
         }
     }
     
@@ -239,6 +239,14 @@ extension ContentView {
             }
             ToolbarItem(placement: .secondaryAction) {
                 autoTranslateButton
+            }
+            ToolbarItem(placement: .secondaryAction) {
+                Button(action: {
+                    vm.translate(api: apiType, tanshuType: tanshuType)
+                }, label: {
+                    Image(systemName: "arrow.right.circle.fill")
+                        .foregroundColor(.accentColor)
+                })
             }
             ToolbarItem(placement: .cancellationAction, content: {
                 conciseToggle

@@ -20,6 +20,9 @@ enum SettingKeys: String {
     
     case apiType = "API-Type"
     case tanshuType = "Tanshu-Type"
+    
+    // deepseek api key
+    // sk-b84b5544da784a138840ee4c1ef6d0db
 }
 
 

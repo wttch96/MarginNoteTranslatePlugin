@@ -12,14 +12,13 @@ import SwiftLogMacro
 /// 探数 API
 @Log("探数API", level: .debug)
 class TanshuAPI {
-    public static let apiKey = "tanshu-api-key"
     public static let shared = TanshuAPI()
     
     private init() {}
     
     // 获取账户 API 的使用情况
     public func accounts() -> AnyPublisher<[TanshuAccountDTO], any Error> {
-        guard let key = UserDefaults.standard.string(forKey: TanshuAPI.apiKey) else {
+        guard let key = UserDefaults.standard.string(forKey: SettingKeys.tanshuAPIKey.rawValue) else {
             return Fail(outputType: [TanshuAccountDTO].self, failure: ApiError.keyNotFound(.tanshu))
                 .eraseToAnyPublisher()
         }
@@ -78,6 +77,7 @@ class TanshuAPI {
         if let httpResp = resp as? HTTPURLResponse {
             self.logger.debug("翻译请求结果: \(httpResp.statusCode)")
         }
+        let dataStr = String(data: data, encoding: .utf8)
         
         let respData = try JSONDecoder().decode(TanshuResponseDTO<TanshuTranslateDTO>.self, from: data)
         

@@ -12,10 +12,6 @@ import SwiftLogMacro
 @Log
 @MainActor
 class ContentViewModel: ObservableObject {
-    // 使用的 API
-    @Published var api: APIType = .tanshu
-    // 探数 API 使用的翻译引擎
-    @Published var tanshuType: TanshuAPIType = .deepl
     
     // 要翻译的文本
     @Published var keywords: String = ""
@@ -53,15 +49,15 @@ class ContentViewModel: ObservableObject {
     
     /// 使用探数 API 进行翻译
     /// - Parameter keywords: 要翻译的文本
-    public func tanshuTranslate(_ keywords: String) {
-        guard let apiKey = UserDefaults.standard.string(forKey: TanshuAPI.apiKey) else {
+    public func tanshuTranslate(_ keywords: String, tanshuType: TanshuAPIType) {
+        guard let apiKey = UserDefaults.standard.string(forKey: SettingKeys.tanshuAPIKey.rawValue) else {
             error = "[\(APIType.tanshu.name)]API Key 未找到, 请在设置中配置..."
             transalting = false
             return
         }
         Task.detached { @MainActor in
             do {
-                let result = try await TanshuAPI.shared.translate(self.keywords, apiKey: apiKey, type: self.tanshuType)
+                let result = try await TanshuAPI.shared.translate(self.keywords, apiKey: apiKey, type: tanshuType)
                 self.translateResult = result
             } catch {
                 self.handleError(error: error)
@@ -92,7 +88,7 @@ class ContentViewModel: ObservableObject {
         }
     }
     
-    public func translate() {
+    public func translate(api: APIType, tanshuType: TanshuAPIType) {
         guard !transalting && !keywords.isEmpty else {
             // 多次提交
             return
@@ -105,7 +101,7 @@ class ContentViewModel: ObservableObject {
         translateResult = ""
         
         if api == .tanshu {
-            tanshuTranslate(keywords)
+            tanshuTranslate(keywords, tanshuType: tanshuType)
             return
         }
         if api == .xunfei {
