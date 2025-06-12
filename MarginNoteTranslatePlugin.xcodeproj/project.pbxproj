@@ -20,6 +20,8 @@
 		49250D902C0609870026C681 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D8F2C0609870026C681 /* MenuBarView.swift */; };
 		49250D922C06D66A0026C681 /* WindowContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D912C06D66A0026C681 /* WindowContext.swift */; };
 		49250D942C06DA8D0026C681 /* IdentifiableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49250D932C06DA8D0026C681 /* IdentifiableView.swift */; };
+		4934EFCA2DFA7EF000499155 /* DeepseekService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4934EFC92DFA7EF000499155 /* DeepseekService.swift */; };
+		4934EFCE2DFA847E00499155 /* ViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4934EFCD2DFA847E00499155 /* ViewService.swift */; };
 		493E0AC12CBE3F72005FE78F /* VisualEffectBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E0AC02CBE3F72005FE78F /* VisualEffectBlur.swift */; };
 		493E0AC32CBFA820005FE78F /* ClipModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E0AC22CBFA820005FE78F /* ClipModifier.swift */; };
 		49695D6A2D23C52900649434 /* SwiftLogMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 49695D692D23C52900649434 /* SwiftLogMacro */; };
@@ -30,6 +32,7 @@
 		49769F5D2C0B0B9E00AA8A4D /* PasteboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49769F5C2C0B0B9E00AA8A4D /* PasteboardButton.swift */; };
 		497A09682C114EB30051C0E0 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497A09672C114EB30051C0E0 /* Language.swift */; };
 		49ADFA6C2CB16ADD007EA3D4 /* TanshuAPIType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ADFA6B2CB16ADD007EA3D4 /* TanshuAPIType.swift */; };
+		49BA62362DF88F5D004248B5 /* DeepseekAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BA62352DF88F5D004248B5 /* DeepseekAPI.swift */; };
 		49C93CC32CB5671B00143FFB /* XunfeiAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C93CC22CB5671B00143FFB /* XunfeiAPI.swift */; };
 		49C93CC52CB5876400143FFB /* SettingKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C93CC42CB5876400143FFB /* SettingKeys.swift */; };
 		49C93CC72CB58CFA00143FFB /* XunfeiAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C93CC62CB58CFA00143FFB /* XunfeiAPIResponse.swift */; };
@@ -77,6 +80,8 @@
 		49250D8F2C0609870026C681 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
 		49250D912C06D66A0026C681 /* WindowContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowContext.swift; sourceTree = "<group>"; };
 		49250D932C06DA8D0026C681 /* IdentifiableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableView.swift; sourceTree = "<group>"; };
+		4934EFC92DFA7EF000499155 /* DeepseekService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepseekService.swift; sourceTree = "<group>"; };
+		4934EFCD2DFA847E00499155 /* ViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewService.swift; sourceTree = "<group>"; };
 		493E0AC02CBE3F72005FE78F /* VisualEffectBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectBlur.swift; sourceTree = "<group>"; };
 		493E0AC22CBFA820005FE78F /* ClipModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipModifier.swift; sourceTree = "<group>"; };
 		49695D6C2D23CDD300649434 /* URLSchemeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSchemeEntity.swift; sourceTree = "<group>"; };
@@ -86,6 +91,7 @@
 		49769F5C2C0B0B9E00AA8A4D /* PasteboardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardButton.swift; sourceTree = "<group>"; };
 		497A09672C114EB30051C0E0 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		49ADFA6B2CB16ADD007EA3D4 /* TanshuAPIType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanshuAPIType.swift; sourceTree = "<group>"; };
+		49BA62352DF88F5D004248B5 /* DeepseekAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepseekAPI.swift; sourceTree = "<group>"; };
 		49C93CC22CB5671B00143FFB /* XunfeiAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XunfeiAPI.swift; sourceTree = "<group>"; };
 		49C93CC42CB5876400143FFB /* SettingKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingKeys.swift; sourceTree = "<group>"; };
 		49C93CC62CB58CFA00143FFB /* XunfeiAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XunfeiAPIResponse.swift; sourceTree = "<group>"; };
@@ -191,6 +197,8 @@
 		49250D892C05E82E0026C681 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4934EFCC2DFA847100499155 /* Service */,
+				4934EFCB2DFA846B00499155 /* New Group */,
 				49FDC5B32C080C75003793F1 /* ViewModel */,
 				49FDC5B02C080463003793F1 /* Component */,
 				49250D5C2C05C41F0026C681 /* ContentView.swift */,
@@ -203,6 +211,7 @@
 		49250D8A2C05F84F0026C681 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				49BA62332DF88F42004248B5 /* Deepseek */,
 				49C93CCA2CB7AD4E00143FFB /* Youdao */,
 				49C93CC12CB5671000143FFB /* Xunfei */,
 				49ADFA6A2CB16A16007EA3D4 /* Tanshu */,
@@ -223,6 +232,22 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		4934EFCB2DFA846B00499155 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		4934EFCC2DFA847100499155 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				4934EFC92DFA7EF000499155 /* DeepseekService.swift */,
+				4934EFCD2DFA847E00499155 /* ViewService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		49695D6B2D23CDBB00649434 /* URLScheme */ = {
 			isa = PBXGroup;
 			children = (
@@ -240,6 +265,14 @@
 				49ADFA6B2CB16ADD007EA3D4 /* TanshuAPIType.swift */,
 			);
 			path = Tanshu;
+			sourceTree = "<group>";
+		};
+		49BA62332DF88F42004248B5 /* Deepseek */ = {
+			isa = PBXGroup;
+			children = (
+				49BA62352DF88F5D004248B5 /* DeepseekAPI.swift */,
+			);
+			path = Deepseek;
 			sourceTree = "<group>";
 		};
 		49C93CC12CB5671000143FFB /* Xunfei */ = {
@@ -421,6 +454,7 @@
 				49C93CC32CB5671B00143FFB /* XunfeiAPI.swift in Sources */,
 				49250D8E2C06059F0026C681 /* TanshuAPI.swift in Sources */,
 				49FDC5B22C0804DB003793F1 /* DisplayableSecureField.swift in Sources */,
+				49BA62362DF88F5D004248B5 /* DeepseekAPI.swift in Sources */,
 				49250D942C06DA8D0026C681 /* IdentifiableView.swift in Sources */,
 				49250D902C0609870026C681 /* MenuBarView.swift in Sources */,
 				49769F572C09B6DD00AA8A4D /* Errors.swift in Sources */,
@@ -435,6 +469,8 @@
 				49C93CC52CB5876400143FFB /* SettingKeys.swift in Sources */,
 				497A09682C114EB30051C0E0 /* Language.swift in Sources */,
 				49250D5B2C05C41F0026C681 /* MarginNoteTranslatePluginApp.swift in Sources */,
+				4934EFCA2DFA7EF000499155 /* DeepseekService.swift in Sources */,
+				4934EFCE2DFA847E00499155 /* ViewService.swift in Sources */,
 				49695D6D2D23CDD300649434 /* URLSchemeEntity.swift in Sources */,
 				49C93CC72CB58CFA00143FFB /* XunfeiAPIResponse.swift in Sources */,
 				49769F5B2C09BAB100AA8A4D /* YoudaoResponseDTO.swift in Sources */,
@@ -670,7 +706,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = MYB5299FCX;
 				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wttch.MarginNoteTranslatePluginTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -690,7 +726,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = MYB5299FCX;
 				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wttch.MarginNoteTranslatePluginTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -709,6 +745,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = MYB5299FCX;
 				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wttch.MarginNoteTranslatePluginUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -727,6 +764,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = MYB5299FCX;
 				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wttch.MarginNoteTranslatePluginUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

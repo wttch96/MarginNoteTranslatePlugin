@@ -12,7 +12,6 @@ import SwiftLogMacro
 @Log
 @MainActor
 class ContentViewModel: ObservableObject {
-    
     // 要翻译的文本
     @Published var keywords: String = ""
     // 翻译结果
@@ -29,8 +28,15 @@ class ContentViewModel: ObservableObject {
     @Published var from: Language = .en
     @Published var to: Language = .zh
     
+    @Published var deepseekType: DeepseekServiceType = .translate
+    
+    @Published var service: DeepseekService?
     // 简洁模式
     @Published var concise: Bool = false
+    
+    private var deepseekAPI: DeepseekAPI? = nil
+
+    @Published private var deepCancellable: AnyCancellable? = nil
     
     private func handleError(error: (any Error)?) {
         guard let error = error as? ApiError else { return }
@@ -81,10 +87,33 @@ class ContentViewModel: ObservableObject {
                 let result = try await XunfeiAPI.shared.translate(keywords, secret: XunfeiAPISecret(appID: appID, secret: apiSecret, key: apiKey), from: self.from, to: self.to)
                 self.translateResult = result
             } catch {
-               self.handleError(error: error)
+                self.handleError(error: error)
             }
             
             self.transalting = false
+        }
+    }
+    
+    private func createDeepseekSession() {
+        if let deepseekKey = UserDefaults.standard.string(forKey: .deepseekKey),
+           let prompt = UserDefaults.standard.string(forKey: .deepseekTranslatePrompt‌)
+        {
+            if deepseekAPI == nil {
+                deepseekAPI = DeepseekAPI(apiKey: deepseekKey, prompt: prompt)
+                deepCancellable = deepseekAPI?.streamPublisher
+                    .subscribe(on: DispatchQueue.global(qos: .background))
+                    .receive(on: DispatchQueue.main)
+                    .sink(receiveCompletion: { _ in
+                        
+                    }, receiveValue: { data in
+                        switch data {
+                        case .content(let ret):
+                            self.translateResult.append(ret)
+                        case .completed:
+                            self.transalting = false
+                        }
+                    })
+            }
         }
     }
     
@@ -99,6 +128,12 @@ class ContentViewModel: ObservableObject {
         transalting = true
         error = nil
         translateResult = ""
+        
+        createDeepseekSession()
+        if let deepseekAPI = deepseekAPI {
+            deepseekAPI.completionsStream(content: keywords)
+            return
+        }
         
         if api == .tanshu {
             tanshuTranslate(keywords, tanshuType: tanshuType)

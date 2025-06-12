@@ -39,29 +39,34 @@ struct ContentView: View {
                         .font(.footnote)
                 }
             }
-            HStack(spacing: 0) {
-                TextEditor(text: $vm.keywords)
+            VStack(spacing: 0) {
+                TextField("", text: $vm.keywords)
+                    .textFieldStyle(.plain)
                     .bold()
                     .font(.subheadline)
                     .padding(4)
                     .background {
-                        UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(topLeading: 4, bottomLeading: 4))
+                        RoundedRectangle(cornerRadius: 4)
                             .fill(.primary.opacity(0.2))
                     }
                     .onSubmit {
                         vm.translate(api: apiType, tanshuType: tanshuType)
                     }
-                    
+                    .padding(8)
+                
                 ZStack {
-                    TextEditor(text: $vm.translateResult)
-                        .bold()
-                        .font(.subheadline)
-                        .foregroundColor(.accentColor)
-                        .padding(4)
-                        .background {
-                            UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(bottomTrailing: 4, topTrailing: 4))
-                                .fill(.secondary.opacity(0.2))
+                    VStack {
+                        HStack {
+                            Text(vm.translateResult)
+                                .bold()
+                                .font(.subheadline)
+                                .foregroundColor(.accentColor)
+                                .padding(4)
+                            Spacer()
                         }
+                        Spacer()
+                    }
+                    .background(.white.opacity(0.1))
                         
                     VStack {
                         Spacer()
@@ -82,7 +87,6 @@ struct ContentView: View {
                 }
             }
         }
-        .padding(8)
         .background(.thinMaterial)
         .textEditorStyle(.plain)
         .frame(maxWidth: 680)
@@ -94,6 +98,9 @@ struct ContentView: View {
         }
         .onChange(of: vm.concise, onConciseChange(_:_:))
         .toolbar(content: { toolbars })
+        .onAppear {
+            vm.service = DeepseekService(type: $vm.deepseekType)
+        }
     }
 }
 
@@ -105,6 +112,8 @@ extension ContentView {
     private func onOpenURL(_ url: URL) {
         // Step 1: 将当前应用移到后台
         NSApplication.shared.deactivate()
+        
+        logger.debug("url: \(url)")
 
         // Step 2: 获取当前应用的进程 ID
         let currentAppPID = NSRunningApplication.current.processIdentifier
@@ -202,6 +211,16 @@ extension ContentView {
             }
     }
     
+    @ViewBuilder
+    private var apiPicker: some View {
+        Picker("翻译API", selection: $apiType, content: {
+            ForEach(APIType.allCases) { api in
+                Text(api.name)
+                    .tag(api)
+            }
+        })
+    }
+    
     // 自动翻译
     @ViewBuilder
     private var autoTranslateButton: some View {
@@ -219,23 +238,27 @@ extension ContentView {
 //                }
 //            }
             ToolbarItem(placement: .secondaryAction) {
-                HStack(spacing: 0) {
-                    Text(apiType.name)
-                    if apiType == .tanshu {
-                        Text(" | \(tanshuType.rawValue)")
-                    }
-                }
-                .font(.footnote)
-                .foregroundColor(apiType.color)
-                .padding(.vertical, 2)
-                .padding(.horizontal, 4)
-                .background(
-                    RoundedRectangle(cornerRadius: 2)
-                        .stroke(apiType.color, lineWidth: 1)
-                )
-                .onTapGesture {
-                    openWindow(id: "SettingWindow")
-                }
+                apiPicker
+//                HStack(spacing: 0) {
+//                    Text(apiType.name)
+//                    if apiType == .tanshu {
+//                        Text(" | \(tanshuType.rawValue)")
+//                    }
+//                }
+//                .font(.footnote)
+//                .foregroundColor(apiType.color)
+//                .padding(.vertical, 2)
+//                .padding(.horizontal, 4)
+//                .background(
+//                    RoundedRectangle(cornerRadius: 2)
+//                        .stroke(apiType.color, lineWidth: 1)
+//                )
+//                .onTapGesture {
+//                    openWindow(id: "SettingWindow")
+//                }
+            }
+            if apiType == .deepseek {
+                deepseekServiceTypePicker
             }
             ToolbarItem(placement: .secondaryAction) {
                 autoTranslateButton
@@ -255,6 +278,19 @@ extension ContentView {
                 pinButton
             })
         }
+    }
+    
+    // deepseek 服务选择
+    @ToolbarContentBuilder
+    private var deepseekServiceTypePicker: some ToolbarContent {
+        ToolbarItem(placement: .secondaryAction, content: {
+            Picker("", selection: $vm.deepseekType, content: {
+                ForEach(DeepseekServiceType.allCases, id: \.rawValue) { type in
+                    Text(type.rawValue)
+                        .tag(type)
+                }
+            })
+        })
     }
 }
 

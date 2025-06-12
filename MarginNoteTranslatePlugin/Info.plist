@@ -7,6 +7,8 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+			<string>com.wttch.translate</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>WttchTranslate</string>

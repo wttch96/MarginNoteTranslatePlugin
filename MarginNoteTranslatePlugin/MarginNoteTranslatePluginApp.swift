@@ -44,17 +44,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //            window.titlebarAppearsTransparent = true
         }
         // 创建状态栏项目
-        statusBarItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-
-        if let button = statusBarItem.button {
-            button.image = NSImage(systemSymbolName: "textformat", accessibilityDescription: "Menu Item")
-            button.action = #selector(togglePopover(_:))
-        }
-
-        popover = NSPopover()
-        popover.contentViewController = NSHostingController(rootView: MenuBarView())
-        // 去除箭头
-        popover.setValue(true, forKeyPath: "shouldHideAnchor")
+//        statusBarItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+//
+//        if let button = statusBarItem.button {
+//            button.image = NSImage(systemSymbolName: "textformat", accessibilityDescription: "Menu Item")
+//            button.action = #selector(togglePopover(_:))
+//        }
+//
+//        popover = NSPopover()
+//        popover.contentViewController = NSHostingController(rootView: MenuBarView())
+//        // 去除箭头
+//        popover.setValue(true, forKeyPath: "shouldHideAnchor")
     }
 
     @objc func togglePopover(_ sender: AnyObject?) {

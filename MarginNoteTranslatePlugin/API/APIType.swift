@@ -14,6 +14,8 @@ enum APIType: String, CaseIterable, Identifiable {
     case youdao = "Youdao"
     case xunfei = "Xunfei"
     
+    case deepseek = "Deepseek"
+    
     var id: String {
         return self.rawValue
     }
@@ -25,6 +27,7 @@ extension APIType {
             .tanshu: "探数",
             .youdao: "有道",
             .xunfei: "讯飞",
+            .deepseek: "Deepseek"
         ]
         
         return names[self]!
@@ -34,7 +37,8 @@ extension APIType {
         let colors: [APIType: Color] = [
             .tanshu: .green,
             .youdao: .red,
-            .xunfei: .blue
+            .xunfei: .blue,
+            .deepseek: .blue
         ]
         return colors[self]!
     }

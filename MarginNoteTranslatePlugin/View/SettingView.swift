@@ -21,6 +21,11 @@ struct SettingView: View {
     @AppStorage(.xunfeiAppSecret) private var xunfeiAppSecret: String = ""
     @AppStorage(.xunfeiAppKey) private var xunfeiAppKey: String = ""
     
+    // deepseek
+    @AppStorage(.deepseekKey) private var deepseekKey: String = ""
+    @AppStorage(.deepseekTranslatePrompt‌) private var deepseekTranslatePrompt: String = ""
+    @AppStorage(.deepseekSummaryPrompt) private var deepseekSummaryPrompt: String = ""
+    
     @State private var accounts: [TanshuAccountDTO] = []
     
     @State private var anyCancellable: AnyCancellable? = nil
@@ -31,6 +36,8 @@ struct SettingView: View {
     
     var body: some View {
         TabView {
+            Tab(content: { deepseekSettingView }, label: { Text("Deepseek") })
+            
             Tab(content: {
                 Form {
                     apiPicker
@@ -103,7 +110,7 @@ struct SettingView: View {
                 Text("API配置")
             })
         }
-        .tabViewStyle(.grouped)
+        .tabViewStyle(.tabBarOnly)
         .padding()
         .frame(width: 600)
         .formStyle(.grouped)
@@ -111,6 +118,24 @@ struct SettingView: View {
 }
 
 extension SettingView {
+    // deepseek
+    @ViewBuilder
+    private var deepseekSettingView: some View {
+        Form {
+            DisplayableSecureField("API Key", text: $deepseekKey)
+            
+            Section("翻译提示词", content: {
+                TextEditor(text: $deepseekTranslatePrompt)
+                    .frame(height: 120)
+            })
+            
+            Section("总结提示词", content: {
+                TextEditor(text: $deepseekSummaryPrompt)
+                    .frame(height: 120)
+            })
+        }
+    }
+    
     @ViewBuilder
     private func sectionHeader(_ text: String) -> some View {
         Text(text)
