@@ -6,6 +6,7 @@
 //
 
 import Combine
+import SwiftLogMacro
 import SwiftUI
 
 enum DeepseekServiceType: String, CaseIterable {
@@ -13,34 +14,60 @@ enum DeepseekServiceType: String, CaseIterable {
     case summary = "总结"
 }
 
-class BaseService {
-    var translatin: Published<Bool>.Publisher
-    var result: Published<String>.Publisher
-    var error: Published<String?>.Publisher
 
-    init(translatin: Published<Bool>.Publisher, result: Published<String>.Publisher, error: Published<String?>.Publisher) {
-        self.translatin = translatin
-        self.result = result
-        self.error = error
-    }
-}
+@Log("Deepseek")
+class DeepseekService: BaseService, TranslateService {
+    private var _type: DeepseekServiceType = .translate
+    private var type: Published<DeepseekServiceType>.Publisher
+    private var anyCancellable: AnyCancellable? = nil
 
-class DeepseekService: ViewService {
-    private var type: Binding<DeepseekServiceType>
-
-    init(type: Binding<DeepseekServiceType>) {
+    private var api: DeepseekAPI? = nil
+    init(
+        type: Published<DeepseekServiceType>.Publisher)
+    {
         self.type = type
+
+        super.init()
+        self.anyCancellable = type.sink(receiveValue: { newValue in
+            self._type = newValue
+            self.logger.info("已使用:\(self._type)")
+        })
     }
 
-    @ToolbarContentBuilder
-    var secondPicker: some ToolbarContent {
-        ToolbarItem {
-            Picker("", selection: type, content: {
-                ForEach(DeepseekServiceType.allCases, id: \.rawValue) { type in
-                    Text(type.rawValue)
-                        .tag(type)
-                }
-            })
+    func translate(content: String) {
+        self.logger.info("[\(self._type)]已提交: \(content)")
+        let apiKey = UserDefaults.standard.string(forKey: .deepseekKey)
+        var prompt: String? = nil
+        if self._type == .translate {
+            prompt = UserDefaults.standard.string(forKey: .deepseekTranslatePrompt‌)
         }
+        if self._type == .summary {
+            prompt = UserDefaults.standard.string(forKey: .deepseekSummaryPrompt)
+        }
+
+        guard let apiKey = apiKey, let prompt = prompt,
+              !apiKey.isEmpty, !prompt.isEmpty
+        else {
+            // 配置获取失败
+            result.send(completion: .failure(ApiError.keyNotFound(.deepseek)))
+            return
+        }
+
+        self.api = DeepseekAPI(apiKey: apiKey, prompt: prompt)
+        self.api?.consume = { ret in
+            switch ret {
+            case .completed:
+                self.result.send((false, ""))
+            case .content(let content):
+                self.result.send((true, content))
+            case .failure(let error):
+                self.result.send(completion: .failure(ApiError.unknown(.deepseek, error)))
+            }
+        }
+        self.api?.completionsStream(content: content)
+    }
+
+    func close() {
+        self.anyCancellable?.cancel()
     }
 }

@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import SwiftLogMacro
 
-@Log
+@Log("ContentView", level: .debug)
 @MainActor
 class ContentViewModel: ObservableObject {
     // 要翻译的文本
@@ -30,13 +30,47 @@ class ContentViewModel: ObservableObject {
     
     @Published var deepseekType: DeepseekServiceType = .translate
     
-    @Published var service: DeepseekService?
     // 简洁模式
     @Published var concise: Bool = false
     
-    private var deepseekAPI: DeepseekAPI? = nil
+    private var api: TranslateService? = nil
+    private var apiCancells: Set<AnyCancellable> = Set()
 
-    @Published private var deepCancellable: AnyCancellable? = nil
+    func switchService(apiType: APIType) {
+        // 取消订阅
+        api?.close()
+        for cancellable in apiCancells {
+            cancellable.cancel()
+        }
+        
+        switch apiType {
+        case .deepseek:
+            api = DeepseekService(type: $deepseekType)
+        default:
+            api = nil
+        }
+        guard let api = api else { return }
+        // 订阅
+        api.result.receive(on: DispatchQueue.main)
+            .sink { compltion in
+                switch compltion {
+                case .finished:
+                    self.transalting = false
+                case .failure(let error):
+                    self.transalting = false
+                    self.error = error.localizedDescription
+                }
+                
+            } receiveValue: { translating, content in
+                self.transalting = translating
+                if self.transalting {
+                    self.translateResult += content
+                }
+            }
+            .store(in: &apiCancells)
+
+        logger.debug("切换api为: \(apiType.name)")
+    }
     
     private func handleError(error: (any Error)?) {
         guard let error = error as? ApiError else { return }
@@ -94,46 +128,27 @@ class ContentViewModel: ObservableObject {
         }
     }
     
-    private func createDeepseekSession() {
-        if let deepseekKey = UserDefaults.standard.string(forKey: .deepseekKey),
-           let prompt = UserDefaults.standard.string(forKey: .deepseekTranslatePrompt‌)
-        {
-            if deepseekAPI == nil {
-                deepseekAPI = DeepseekAPI(apiKey: deepseekKey, prompt: prompt)
-                deepCancellable = deepseekAPI?.streamPublisher
-                    .subscribe(on: DispatchQueue.global(qos: .background))
-                    .receive(on: DispatchQueue.main)
-                    .sink(receiveCompletion: { _ in
-                        
-                    }, receiveValue: { data in
-                        switch data {
-                        case .content(let ret):
-                            self.translateResult.append(ret)
-                        case .completed:
-                            self.transalting = false
-                        }
-                    })
-            }
-        }
-    }
     
     public func translate(api: APIType, tanshuType: TanshuAPIType) {
+        if let service = self.api {
+            logger.info("[\(api.name)]翻译已提交...")
+            
+            service.translate(content: keywords)
+        } else { return }
+        
         guard !transalting && !keywords.isEmpty else {
             // 多次提交
             return
         }
         
-        logger.info("[\(api.name)]翻译已提交...")
-        
         transalting = true
         error = nil
         translateResult = ""
-        
-        createDeepseekSession()
-        if let deepseekAPI = deepseekAPI {
-            deepseekAPI.completionsStream(content: keywords)
-            return
-        }
+    
+//        if let deepseekAPI = deepseekAPI {
+//            deepseekAPI.completionsStream(content: keywords)
+//            return
+//        }
         
         if api == .tanshu {
             tanshuTranslate(keywords, tanshuType: tanshuType)

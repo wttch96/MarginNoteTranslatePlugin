@@ -97,10 +97,8 @@ struct ContentView: View {
             self.onConciseChange(false, self.vm.concise)
         }
         .onChange(of: vm.concise, onConciseChange(_:_:))
+        .onChange(of: apiType) { _, newValue in self.vm.switchService(apiType: newValue) }
         .toolbar(content: { toolbars })
-        .onAppear {
-            vm.service = DeepseekService(type: $vm.deepseekType)
-        }
     }
 }
 

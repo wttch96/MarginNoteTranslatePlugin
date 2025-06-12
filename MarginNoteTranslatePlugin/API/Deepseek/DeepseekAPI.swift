@@ -5,7 +5,6 @@
 //  Created by Wttch on 2025/6/11.
 //
 
-import Combine
 import Foundation
 import SwiftLogMacro
 
@@ -18,6 +17,7 @@ struct DeepseekDTO: Encodable {
 enum DeepseekStreamData {
     case content(String)
     case completed
+    case failure(any Error)
 }
 
 @Log
@@ -30,7 +30,7 @@ class DeepseekAPI: NSObject, URLSessionDataDelegate {
     private var session: URLSession!
     private var task: URLSessionDataTask?
     
-    public var streamPublisher: PassthroughSubject<DeepseekStreamData, Error> = PassthroughSubject()
+    var consume: ((DeepseekStreamData) -> Void)? = nil
     
     init(apiKey: String, prompt: String) {
         self.apiKey = apiKey
@@ -76,7 +76,7 @@ class DeepseekAPI: NSObject, URLSessionDataDelegate {
             let jsonString = String(line.dropFirst(6)) // 去掉"data: "前缀
                 
             if jsonString == "[DONE]" {
-                streamPublisher.send(.completed)
+                self.consume?(.completed)
                 return
             }
                 
@@ -88,10 +88,10 @@ class DeepseekAPI: NSObject, URLSessionDataDelegate {
                    let delta = firstChoice["delta"] as? [String: Any],
                    let content = delta["content"] as? String
                 {
-                    streamPublisher.send(.content(content))
+                    self.consume?(.content(content))
                 }
             } catch {
-                streamPublisher.send(completion: .failure(error))
+                self.consume?(.failure(error))
             }
         }
     }
@@ -99,6 +99,6 @@ class DeepseekAPI: NSObject, URLSessionDataDelegate {
     // 错误处理
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         guard let error = error else { return }
-        streamPublisher.send(completion: .failure(error))
+        self.consume?(.failure(error))
     }
 }
