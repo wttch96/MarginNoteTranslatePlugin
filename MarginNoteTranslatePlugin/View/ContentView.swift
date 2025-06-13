@@ -72,7 +72,12 @@ struct ContentView: View {
                         Spacer()
                             
                         HStack {
-                            if !vm.translateResult.isEmpty {
+                            if vm.transalting {
+                                Text("处理中...")
+                                    .font(.footnote)
+                                    .foregroundColor(.accentColor)
+                            }
+                            if !vm.transalting && !vm.translateResult.isEmpty {
                                 PasteboardButton(text: vm.translateResult)
                             }
                             Spacer()
@@ -84,6 +89,8 @@ struct ContentView: View {
                             }
                         }
                     }
+                    .padding(.horizontal, 8)
+                    .padding(.bottom, 8)
                 }
             }
         }
@@ -95,6 +102,7 @@ struct ContentView: View {
         .onOpenURL(perform: onOpenURL)
         .onAppear {
             self.onConciseChange(false, self.vm.concise)
+            self.vm.switchService(apiType: apiType)
         }
         .onChange(of: vm.concise, onConciseChange(_:_:))
         .onChange(of: apiType) { _, newValue in self.vm.switchService(apiType: newValue) }
@@ -269,6 +277,12 @@ extension ContentView {
                         .foregroundColor(.accentColor)
                 })
             }
+            ToolbarItem(placement: .cancellationAction, content: {
+                Image(systemName: "gearshape")
+                    .onTapGesture {
+                        openWindow(id: "SettingWindow")
+                    }
+            })
             ToolbarItem(placement: .cancellationAction, content: {
                 conciseToggle
             })

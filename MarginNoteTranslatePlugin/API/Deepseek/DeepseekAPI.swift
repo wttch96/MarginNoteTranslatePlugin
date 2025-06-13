@@ -20,7 +20,7 @@ enum DeepseekStreamData {
     case failure(any Error)
 }
 
-@Log
+@Log("DeepseekAPI", level: .debug)
 class DeepseekAPI: NSObject, URLSessionDataDelegate {
     static let urlStr = "https://api.deepseek.com/chat/completions"
     
@@ -43,13 +43,13 @@ class DeepseekAPI: NSObject, URLSessionDataDelegate {
         var req = URLRequest(url: URL(string: Self.urlStr)!)
         req.httpMethod = "POST"
         req.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        req.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+        req.addValue("Bearer \(self.apiKey)", forHTTPHeaderField: "Authorization")
         return req
     }
     
     func completionsStream(content: String) {
-        task?.cancel()
-        var req = createRequest()
+        self.task?.cancel()
+        var req = self.createRequest()
         
         let encoder = JSONEncoder()
         let dto = DeepseekDTO(model: "deepseek-chat", messages: [
@@ -59,8 +59,10 @@ class DeepseekAPI: NSObject, URLSessionDataDelegate {
              "content": content]
         ], stream: true)
         req.httpBody = try! encoder.encode(dto)
-        task = session.dataTask(with: req)
-        task?.resume()
+        self.task = self.session.dataTask(with: req)
+        self.task?.resume()
+        
+        self.logger.debug("deepseek api 请求已发送...")
     }
     
     //
@@ -95,10 +97,22 @@ class DeepseekAPI: NSObject, URLSessionDataDelegate {
             }
         }
     }
-        
-    // 错误处理
+    
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        guard let error = error else { return }
+        guard let error = error else {
+            if let httpResponse = task.response as? HTTPURLResponse {
+                let statusCode = httpResponse.statusCode
+                if statusCode != 200 {
+                    // code 出错
+                    self.logger.warning("请求失败, code: \(statusCode)")
+                    return
+                }
+            }
+            self.logger.debug("Session 完成.")
+            return
+        }
+        
         self.consume?(.failure(error))
+        self.logger.debug("Session 出错: \(error.localizedDescription)")
     }
 }
