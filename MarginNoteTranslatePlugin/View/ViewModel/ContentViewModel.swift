@@ -30,8 +30,6 @@ class ContentViewModel: ObservableObject {
     
     @Published var deepseekType: DeepseekServiceType = .translate
     
-    // 简洁模式
-    @Published var concise: Bool = false
     
     private var api: TranslateService? = nil
     private var apiCancells: Set<AnyCancellable> = Set()

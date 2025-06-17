@@ -23,8 +23,13 @@ enum SettingKeys: String {
     case deepseekTranslatePrompt‌ = "deepseek-translate-prompt"
     case deepseekSummaryPrompt = "deepseek-summary-prompt"
     
+    // API 类型
     case apiType = "API-Type"
+    // 探数翻译类型
     case tanshuType = "Tanshu-Type"
+    
+    // 窗口悬浮
+    case windowFloat = "window-float"
 }
 
 
@@ -38,6 +43,10 @@ extension AppStorage {
     }
     
     init(wrappedValue: Value, _ key: SettingKeys, store: UserDefaults? = nil) where Value == TanshuAPIType {
+        self.init(wrappedValue: wrappedValue, key.rawValue, store: store)
+    }
+    
+    init(wrappedValue: Value, _ key: SettingKeys, store: UserDefaults? = nil) where Value == Bool {
         self.init(wrappedValue: wrappedValue, key.rawValue, store: store)
     }
 }
