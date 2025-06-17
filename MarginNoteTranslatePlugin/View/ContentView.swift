@@ -26,68 +26,55 @@ struct ContentView: View {
     @FocusState private var isFocused: Bool
     
     var body: some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 0) {
-//                    Button(action: {}, label: {
-//                        Image(systemName: "square.and.line.vertical.and.square")
-//                    })
-//                    .buttonStyle(.accessoryBar)
-//
-            }
-            VStack(spacing: 0) {
-                TextField("", text: $vm.keywords)
-                    .textFieldStyle(.plain)
-                    .bold()
-                    .font(.subheadline)
-                    .padding(4)
-                    .background {
-                        RoundedRectangle(cornerRadius: 4)
-                            .fill(.primary.opacity(0.2))
-                    }
-                    .onSubmit {
-                        vm.translate(api: apiType, tanshuType: tanshuType)
-                    }
-                    .padding(8)
-                
-                ZStack {
-                    VStack {
-                        HStack {
-                            Text(vm.translateResult)
-                                .bold()
-                                .font(.subheadline)
-                                .foregroundColor(.accentColor)
-                                .padding(4)
-                            Spacer()
-                        }
-                        Spacer()
-                    }
-                    .background(.white.opacity(0.1))
-                        
-                    VStack {
-                        Spacer()
-                            
-                        HStack {
-                            if vm.transalting {
-                                Text("处理中...")
-                                    .font(.footnote)
-                                    .foregroundColor(.accentColor)
-                            }
-                            if !vm.transalting && !vm.translateResult.isEmpty {
-                                PasteboardButton(text: vm.translateResult)
-                            }
-                            Spacer()
-                                
-                            if let error = vm.error {
-                                Text(error)
-                                    .font(.caption)
-                                    .foregroundColor(.red)
-                            }
-                        }
-                    }
-                    .padding(.horizontal, 8)
-                    .padding(.bottom, 8)
+        VStack(spacing: 8) {
+            TextField("", text: $vm.keywords)
+                .textFieldStyle(.plain)
+                .bold()
+                .font(.subheadline)
+                .padding(4)
+                .background {
+                    RoundedRectangle(cornerRadius: 4)
+                        .fill(.primary.opacity(0.2))
                 }
+                .onSubmit {
+                    vm.translate(api: apiType, tanshuType: tanshuType)
+                }
+                .padding(.horizontal, 8)
+                
+            VStack {
+                HStack {
+                    Text(vm.translateResult)
+                        .bold()
+                        .font(.subheadline)
+                        .foregroundColor(.accentColor)
+                        .padding(8)
+                        .padding(.horizontal, 8)
+                    Spacer()
+                }
+                Spacer()
             }
+            .background(.gray.opacity(0.2))
+                        
+            HStack(alignment: .center) {
+                if vm.transalting {
+                    Text("处理中...")
+                        .font(.footnote)
+                        .foregroundColor(.accentColor)
+                }
+                if !vm.transalting && !vm.translateResult.isEmpty {
+                    PasteboardButton(text: vm.translateResult)
+                }
+                    
+                if let error = vm.error {
+                    Text(error)
+                        .font(.caption)
+                        .foregroundColor(.red)
+                }
+                Spacer()
+                translateButton
+            }
+            .padding(.horizontal, 8)
+            .padding(.bottom, 8)
         }
         .background(.thinMaterial)
         .textEditorStyle(.plain)
@@ -107,14 +94,12 @@ struct ContentView: View {
 // MARK: 行为
 
 extension ContentView {
-    
     /// 修改窗口悬浮状态
     private func changeWindowFloat() {
         WindowContext.shared.mainWindow { window in
             window.level = float ? .floating : .normal
         }
     }
-    
     
     /// 监听 URL
     /// - Parameter url: URL 链接, 格式为 `WttchTranslate://keyword/要翻译文本`
@@ -191,7 +176,6 @@ extension ContentView {
             tanshuTypePicker
         }
         autoTranslateButton
-        translateButton
         ToolbarItem(placement: .cancellationAction, content: {
             pinButton
         })
@@ -242,31 +226,27 @@ extension ContentView {
     }
     
     // 翻译按钮
-    @ToolbarContentBuilder
-    private var translateButton: some ToolbarContent {
-        ToolbarItem(placement: .secondaryAction) {
-            if !vm.transalting {
-                // 未翻译状态
-                Button(action: {
-                    vm.translate(api: apiType, tanshuType: tanshuType)
-                }, label: {
-                    Image(systemName: "arrow.right.circle.fill")
-                        .imageScale(.large)
-                        .foregroundColor(.accentColor)
-                })
+    @ViewBuilder
+    private var translateButton: some View {
+        // 未翻译状态
+        Button(action: {
+            vm.translate(api: apiType, tanshuType: tanshuType)
+        }, label: {
+            if vm.transalting {
+                ProgressView()
+                    .controlSize(.small)
+                Text("取消")
             } else {
-                // 翻译中状态
-                HStack {
-                    Text("翻译中")
-                        .font(.footnote)
-                    Button(action: {
-                        // vm.cancelTranslate()
-                    }, label: {
-                        Image(systemName: "xmark.circle.fill")
-                    })
-                }
-                .foregroundColor(.red)
+                Image(systemName: "arrow.right")
+                Text("生成")
             }
+        })
+        .padding(.vertical, 4)
+        .padding(.horizontal, 8)
+        .buttonStyle(.plain)
+        .background {
+            RoundedRectangle(cornerRadius: 4)
+                .fill(.accent.opacity(0.2))
         }
     }
     
