@@ -46,6 +46,8 @@ class ContentViewModel: ObservableObject {
         switch apiType {
         case .deepseek:
             api = DeepseekService(type: $deepseekType)
+        case .tanshu:
+            api = TanshuService()
         default:
             api = nil
         }
@@ -87,24 +89,6 @@ class ContentViewModel: ObservableObject {
         }
     }
     
-    /// 使用探数 API 进行翻译
-    /// - Parameter keywords: 要翻译的文本
-    public func tanshuTranslate(_ keywords: String, tanshuType: TanshuAPIType) {
-        guard let apiKey = UserDefaults.standard.string(forKey: SettingKeys.tanshuAPIKey.rawValue) else {
-            error = "[\(APIType.tanshu.name)]API Key 未找到, 请在设置中配置..."
-            transalting = false
-            return
-        }
-        Task.detached { @MainActor in
-            do {
-                let result = try await TanshuAPI.shared.translate(self.keywords, apiKey: apiKey, type: tanshuType)
-                self.translateResult = result
-            } catch {
-                self.handleError(error: error)
-            }
-            self.transalting = false
-        }
-    }
     
     public func xunfeiTranslate(_ keywords: String) {
         guard let appID = UserDefaults.standard.string(forKey: .xunfeiAppID),
@@ -130,6 +114,10 @@ class ContentViewModel: ObservableObject {
     
     
     public func translate(api: APIType, tanshuType: TanshuAPIType) {
+        guard !keywords.isEmpty else {
+            self.logger.info("翻译内容为空!")
+            return
+        }
         if let service = self.api {
             logger.info("[\(api.name)]翻译已提交...")
             
@@ -150,38 +138,38 @@ class ContentViewModel: ObservableObject {
 //            return
 //        }
         
-        if api == .tanshu {
-            tanshuTranslate(keywords, tanshuType: tanshuType)
-            return
-        }
-        if api == .xunfei {
-            xunfeiTranslate(keywords)
-            return
-        }
-        if api == .youdao {
-            anyCancellabel = YoudaoAPI.shared.translate(keywords)
-                .sink(receiveCompletion: { completion in
-                    switch completion {
-                    case .finished:
-                        break
-                    case .failure(let error):
-                        switch error {
-                        case .keyNotFound(let type):
-                            self.error = "[\(type.name)]API Key 未找到, 请在设置中配置..."
-                        case .serviceError(let type, let code):
-                            self.error = "[\(type.name)]服务错误: 代码(\(code)."
-                        case .unknown(let apiType, let error):
-                            self.error = "[\(apiType.name)]未知错误: \(type(of: error)): \(error.localizedDescription)"
-                        case .url(let apiType, let urlString):
-                            self.error = "URL 错误: \(urlString)"
-                        }
-                    }
-                    self.transalting = false
-                }, receiveValue: { data in
-                    self.translateResult = data.translation?.first ?? "<None>"
-                })
-
-            return
-        }
+//        if api == .tanshu {
+//            tanshuTranslate(keywords, tanshuType: tanshuType)
+//            return
+//        }
+//        if api == .xunfei {
+//            xunfeiTranslate(keywords)
+//            return
+//        }
+//        if api == .youdao {
+//            anyCancellabel = YoudaoAPI.shared.translate(keywords)
+//                .sink(receiveCompletion: { completion in
+//                    switch completion {
+//                    case .finished:
+//                        break
+//                    case .failure(let error):
+//                        switch error {
+//                        case .keyNotFound(let type):
+//                            self.error = "[\(type.name)]API Key 未找到, 请在设置中配置..."
+//                        case .serviceError(let type, let code):
+//                            self.error = "[\(type.name)]服务错误: 代码(\(code)."
+//                        case .unknown(let apiType, let error):
+//                            self.error = "[\(apiType.name)]未知错误: \(type(of: error)): \(error.localizedDescription)"
+//                        case .url(let apiType, let urlString):
+//                            self.error = "URL 错误: \(urlString)"
+//                        }
+//                    }
+//                    self.transalting = false
+//                }, receiveValue: { data in
+//                    self.translateResult = data.translation?.first ?? "<None>"
+//                })
+//
+//            return
+//        }
     }
 }

@@ -234,37 +234,19 @@ extension ContentView {
             .toggleStyle(.checkbox)
     }
     
-    // 工具栏
+    // MARK: 工具栏
+
     @ToolbarContentBuilder
     private var toolbars: some ToolbarContent {
         if !vm.concise {
-//            if showNavigation == .detailOnly {
-//                ToolbarItem(placement: .navigation) {
-//                    navigationToggle
-//                }
-//            }
             ToolbarItem(placement: .secondaryAction) {
                 apiPicker
-//                HStack(spacing: 0) {
-//                    Text(apiType.name)
-//                    if apiType == .tanshu {
-//                        Text(" | \(tanshuType.rawValue)")
-//                    }
-//                }
-//                .font(.footnote)
-//                .foregroundColor(apiType.color)
-//                .padding(.vertical, 2)
-//                .padding(.horizontal, 4)
-//                .background(
-//                    RoundedRectangle(cornerRadius: 2)
-//                        .stroke(apiType.color, lineWidth: 1)
-//                )
-//                .onTapGesture {
-//                    openWindow(id: "SettingWindow")
-//                }
             }
             if apiType == .deepseek {
                 deepseekServiceTypePicker
+            }
+            if apiType == .tanshu {
+                tanshuTypePicker
             }
             ToolbarItem(placement: .secondaryAction) {
                 autoTranslateButton
@@ -302,6 +284,19 @@ extension ContentView {
                         .tag(type)
                 }
             })
+        })
+    }
+    
+    // 探数 API 翻译引擎选择
+    @ToolbarContentBuilder
+    private var tanshuTypePicker: some ToolbarContent {
+        ToolbarItem(placement: .secondaryAction, content: {
+            Picker("探数翻译引擎", selection: $tanshuType) {
+                ForEach(TanshuAPIType.allCases, id: \.rawValue) { api in
+                    Text(api.rawValue)
+                        .tag(api)
+                }
+            }
         })
     }
 }

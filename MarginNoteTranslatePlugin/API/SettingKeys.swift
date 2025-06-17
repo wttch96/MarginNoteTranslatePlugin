@@ -46,4 +46,8 @@ extension UserDefaults {
     func string(forKey: SettingKeys) -> String? {
         return self.string(forKey: forKey.rawValue)
     }
+    
+    func object(forKey: SettingKeys) -> Any? {
+        return self.object(forKey: forKey.rawValue)
+    }
 }
